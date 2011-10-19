@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="Serial port setup">
+	<PreferenceCategory android:title="@string/device_connected"></PreferenceCategory>
+	<CheckBoxPreference
+		android:key="EXTERNAL_DEVICE"
+		android:title="@string/external_device_key"
+		android:summary="@string/external_device_summary" android:icon="@drawable/ic_launcher"/> 
+	<ListPreference 
+		android:key="DEVICE" 
+		android:title="@string/device" 
+		android:dependency="EXTERNAL_DEVICE"
+		android:persistent="true">
+	</ListPreference>
+	<ListPreference 
+		android:key="BAUDRATE"
+		android:title="@string/baude_rate" 
+		android:entries="@array/baudrates_name"
+		android:entryValues="@array/baudrates_value" 
+		android:dependency="EXTERNAL_DEVICE"
+		android:persistent="true"> 
+	</ListPreference>
+</PreferenceScreen>

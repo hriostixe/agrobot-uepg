@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:SatView="http://schemas.android.com/apk/res/android.draw"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" 
+	android:orientation="horizontal">
+    <LinearLayout 
+    	android:orientation="vertical" 
+    	android:id="@+id/linearLayout2" 
+      	android:background="@drawable/rounded_shape" 
+		android:layout_height="fill_parent" 
+		android:layout_width="0dp" 
+    	android:layout_weight="40">
+        <android.draw.RadarView 
+        	android:layout_weight="90" 
+        	android:layout_gravity="center_vertical|center_horizontal" 
+        	android:id="@+id/satView" 
+        	android:layout_height="0dp" 
+        	android:layout_width="fill_parent">
+        </android.draw.RadarView>
+        <TableRow 
+        	android:gravity="center_vertical|center_horizontal" 
+        	android:id="@+id/TableRow01" 
+        	android:layout_weight="10" 
+        	android:layout_height="0dp" 
+        	android:layout_width="match_parent" 
+			android:background="@drawable/rounded_shape_text_radar"> 
+            <LinearLayout 
+            	android:id="@+id/LinearLayout01" 
+            	android:layout_height="fill_parent" 
+            	android:layout_width="fill_parent" 
+            	android:orientation="horizontal" android:gravity="center_vertical|center_horizontal" android:layout_marginLeft="5dp" android:layout_marginRight="5dp">
+                <TextView 
+                	android:id="@+id/TextView03" 
+        			android:layout_weight="26" 
+                	android:textAppearance="?android:attr/textAppearanceLarge" 
+                	android:layout_height="wrap_content" 
+                	android:layout_width="0dp" 
+                	android:textSize="9sp" 
+                	android:text="Ângulo:" android:gravity="left|center_vertical"/>
+                <TextView 
+                	android:layout_weight="18" 
+                	android:layout_height="wrap_content" 
+                	android:layout_width="0dp" 
+                	android:text="25º" 
+                	android:textSize="13sp" 
+                	android:layout_marginRight="13sp" android:gravity="right|center_vertical" android:id="@+id/angleView" android:textAppearance="?android:attr/textAppearanceMedium"/>
+                <TextView 
+                	android:id="@+id/TextView02" 
+        			android:layout_weight="29" 
+                	android:textAppearance="?android:attr/textAppearanceLarge" 
+                	android:layout_height="wrap_content" 
+                	android:layout_width="0dp" 
+                	android:textSize="9sp" 
+                	android:text="Distância:" android:gravity="left|center_vertical"/>
+                <TextView 
+                	android:layout_weight="27" 
+                	android:layout_height="wrap_content" 
+                	android:layout_width="0dp" 
+                	android:text="1750m" 
+                	android:textSize="13sp" 
+                	android:gravity="right|center_vertical" android:id="@+id/distanceView" android:textAppearance="?android:attr/textAppearanceMedium"/>
+            </LinearLayout>
+        </TableRow>
+    </LinearLayout>
+	<LinearLayout 
+		android:orientation="horizontal" 
+		android:background="@drawable/rounded_shape" 
+		android:layout_height="fill_parent" 
+		android:layout_width="0dp" 
+		android:layout_weight="60" android:layout_marginLeft="3sp">
+		<LinearLayout 
+			android:layout_width="fill_parent" 
+			android:orientation="vertical" 
+			android:layout_height="fill_parent" 
+			android:layout_weight="1" 
+			android:layout_margin="5dp">
+			<TableRow 
+				android:layout_width="match_parent" 
+				android:id="@+id/tableRow1" 
+				android:layout_weight="1" 
+				android:gravity="center_vertical|center_horizontal" 
+				android:layout_height="wrap_content">
+				<LinearLayout 
+					android:id="@+id/linearLayout1" 
+					android:layout_weight="80" 
+					android:layout_width="0dp" 
+					android:layout_height="fill_parent" 
+					android:orientation="vertical" android:layout_margin="6sp">
+					<LinearLayout android:id="@+id/linearLayout4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView01" android:layout_width="0dp" android:layout_height="wrap_content" android:text="Latitude:" android:textAppearance="?android:attr/textAppearanceSmall" android:textSize="13sp" android:layout_weight="30"></TextView>
+						<TextView android:id="@+id/latitude" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:text="25º06,7554'" android:textSize="20sp" android:gravity="right" android:layout_weight="60" android:layout_width="0dp"></TextView>
+						<TextView android:layout_height="wrap_content" android:text="S" android:gravity="center" android:layout_width="0dp" android:layout_weight="10" android:id="@+id/south" android:textSize="18sp"></TextView>
+					</LinearLayout>
+					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayout02" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView06" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="Longitude:" android:textSize="12sp" android:layout_weight="30"></TextView>
+						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/longitude" android:text="125º06,7554'" android:layout_weight="60" android:layout_width="0dp" android:gravity="right"></TextView>
+						<TextView android:layout_height="wrap_content" android:text="O" android:layout_weight="10" android:layout_width="0dp" android:gravity="center" android:id="@+id/west" android:textSize="18sp"></TextView>
+					</LinearLayout>
+				</LinearLayout>
+				<LinearLayout 
+					android:id="@+id/linearLayout3" 
+					android:layout_weight="20" 
+					android:background="@drawable/rounded_shape_text" 
+					android:layout_width="0dp" 
+					android:layout_height="fill_parent" android:orientation="vertical">
+					<AnalogClock android:layout_weight="0.16" android:id="@+id/analogClock1" android:layout_width="50dp" android:layout_height="45sp"></AnalogClock>
+				</LinearLayout>
+			</TableRow>
+			<TextView 
+				android:layout_weight="1" 
+				android:layout_gravity="center_horizontal" 
+				android:typeface="monospace" 
+				android:textSize="26sp" 
+				android:textColor="#FF00FF00" 
+				android:layout_height="wrap_content" 
+				android:layout_width="wrap_content" 
+				android:id="@+id/distancia"/>
+			<TextView android:textSize="15pt" 
+				android:text="row four" 
+				android:layout_width="fill_parent" 
+				android:layout_height="0dp" 
+				android:layout_weight="1" 
+				android:gravity="bottom|center_horizontal" android:id="@+id/information"/>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
