@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Navigo</string>
+    <string name="ac_navigation">Navegação</string>
+    <string name="ac_settings">Configurações</string>
+    <string name="ac_about">Sobre</string>
+    <string name="ac_exit">Sair</string>
+
+    <string name="device_connected">Dispositivo conectado - GPS</string>
+    <string name="external_device_key">Habilitar dispositivo serial externo</string>
+    <string name="external_device_summary">Check para habilitar dispositivo serial externo</string>
+
+    <string name="scanning">Procurando...</string>     
+    <string name="menu_standard">Imperial</string>
+    <string name="menu_metric">Métrico</string>
+
+    <string name="really_quit">Deseja realmente sair?</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="confirm">Confirma</string>
+    <string name="baude_rate">Velocidade de transmissão</string>
+    <string name="device">Dispositivo</string>
+    
+    <string name="error">Erro</string>
+    <string name="error_configuration">Por favor configure o dispositivo serial primeiro.</string>
+	<string name="error_security">Você não tem permissão para ler/escrever no dispositivo serial.</string>
+	<string name="error_unknown">Erro desconhecido na tentativa de conectar ao dispositivo.</string>
+</resources>
