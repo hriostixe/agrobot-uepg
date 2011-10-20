@@ -90,12 +90,12 @@
 					android:orientation="vertical" android:layout_margin="6sp">
 					<LinearLayout android:id="@+id/linearLayout4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
 						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView01" android:layout_width="0dp" android:layout_height="wrap_content" android:text="Latitude:" android:textAppearance="?android:attr/textAppearanceSmall" android:textSize="13sp" android:layout_weight="30"></TextView>
-						<TextView android:id="@+id/latitude" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:text="25º06,7554'" android:textSize="20sp" android:gravity="right" android:layout_weight="60" android:layout_width="0dp"></TextView>
+						<TextView android:id="@+id/latitude" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:text="25º06,7554'" android:textSize="20sp" android:gravity="right" android:layout_weight="60" android:layout_width="0dp" android:textColor="@color/opaque_green"></TextView>
 						<TextView android:layout_height="wrap_content" android:text="S" android:gravity="center" android:layout_width="0dp" android:layout_weight="10" android:id="@+id/south" android:textSize="18sp"></TextView>
 					</LinearLayout>
 					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayout02" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
 						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView06" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="Longitude:" android:textSize="12sp" android:layout_weight="30"></TextView>
-						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/longitude" android:text="125º06,7554'" android:layout_weight="60" android:layout_width="0dp" android:gravity="right"></TextView>
+						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/longitude" android:text="125º06,7554'" android:layout_weight="60" android:layout_width="0dp" android:gravity="right" android:textColor="@color/opaque_green"></TextView>
 						<TextView android:layout_height="wrap_content" android:text="O" android:layout_weight="10" android:layout_width="0dp" android:gravity="center" android:id="@+id/west" android:textSize="18sp"></TextView>
 					</LinearLayout>
 				</LinearLayout>
