@@ -225,7 +225,7 @@ public class Navigation extends Activity implements LocationListener {
         
 		// show the received location in the view
         
-        Typeface LCDTypeface = Typeface.createFromAsset(this.getAssets(),"DS-DIGIB.TTF"); 
+        Typeface LCDTypeface = Typeface.createFromAsset(this.getAssets(),"DS-DIGII.TTF"); 
         
 		TextView textDistance = (TextView) findViewById(R.id.distanceView);
 		textDistance.setText(radarView.getDistanceView());
