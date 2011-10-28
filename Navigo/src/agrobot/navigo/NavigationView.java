@@ -94,7 +94,7 @@ public class NavigationView extends View {
 			// canvas.drawText(String.valueOf(direction), cxCompass, cyCompass,
 			// paint);
 
-			Typeface mFace = Typeface.createFromAsset(getContext().getAssets(), "LCD-BOLD.TTF");
+			Typeface mFace = Typeface.createFromAsset(getContext().getAssets(), "DS-DIGI.TTF");
 			text.setColor(0xFF000040);
 
 	        text.setTypeface(mFace);
