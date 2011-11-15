@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
-
+/* teste comentário anderson para subversion */
 public class NavigoActivity extends TabActivity {
 
 	private TabHost tabHost;
