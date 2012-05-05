@@ -1,5 +1,7 @@
 package agrobot.navigo;
 
+import com.google.android.maps.GeoPoint;
+
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 public class NavigoActivity extends TabActivity {
 
 	private TabHost tabHost;
+	public static GeoPoint targetPoint;
 
 	public NavigoActivity() {
 	}
@@ -61,6 +64,9 @@ public class NavigoActivity extends TabActivity {
 		tabHost.getTabWidget().setDividerDrawable(
 				res.getDrawable(R.drawable.tab_divider));
 
+		setupTab("maps", res.getString(R.string.ac_maps),
+				res.getDrawable(R.drawable.ic_tab_maps),
+				new Intent().setClass(this, AndroidMapViewActivity.class));
 		setupTab("navigation", res.getString(R.string.ac_navigation),
 				res.getDrawable(R.drawable.ic_tab_navigation),
 				new Intent().setClass(this, Navigation.class));
@@ -79,7 +85,6 @@ public class NavigoActivity extends TabActivity {
 
 	private void setupTab(final String tag, final String caption,
 			final Drawable icon, final Intent intent) {
-
 		View tabView = createTabView(tabHost.getContext(), caption, icon);
 		TabHost.TabSpec spec;
 

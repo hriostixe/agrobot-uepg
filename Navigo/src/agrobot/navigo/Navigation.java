@@ -3,10 +3,15 @@ package agrobot.navigo;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
+
+
+import android.R.integer;
 import android.draw.GeoUtils;
 import android.app.Activity;
 import android.content.Context;
@@ -42,6 +47,7 @@ public class Navigation extends Activity implements LocationListener {
     private double mTargetLon;
     private double mMyLocationLat;
     private double mMyLocationLon;
+    
 
     private double mDistance; //Distance to target, in KM
    
@@ -118,10 +124,18 @@ public class Navigation extends Activity implements LocationListener {
         
         // Read the target from our intent
         Intent i = getIntent();
-        int latE6 = (int)(i.getFloatExtra("latitude", (float) -122.084095) * GeoUtils.MILLION);
-        int lonE6 = (int)(i.getFloatExtra("longitude", (float) 37.422006) * GeoUtils.MILLION);
-        mTargetLat = latE6 / (double) GeoUtils.MILLION;
-        mTargetLon = lonE6 / (double) GeoUtils.MILLION;
+        if( targetPoints.getTargetPoint()!=null){
+        	mTargetLat = targetPoints.getTargetPoint().getLatitudeE6() / (double) GeoUtils.MILLION;
+          	mTargetLon = targetPoints.getTargetPoint().getLongitudeE6() / (double) GeoUtils.MILLION;
+
+        }else{
+	        int latE6 = (int)(i.getFloatExtra("latitude", (float) -25.113324) * GeoUtils.MILLION);
+	        int lonE6 = (int)(i.getFloatExtra("longitude", (float) -50.144996	) * GeoUtils.MILLION);
+	
+	        mTargetLat = latE6 / (double) GeoUtils.MILLION;
+	        mTargetLon = lonE6 / (double) GeoUtils.MILLION;
+        }
+
 	}
 
 	/** Define a mock GPS provider as an asynchronous task of this Activity. */
@@ -201,8 +215,6 @@ public class Navigation extends Activity implements LocationListener {
 	public void onLocationChanged(Location location) {
         mMyLocationLat = location.getLatitude();
         mMyLocationLon = location.getLongitude();
- 
-        
         int mMyLocationLatDeg = (int) Math.abs(mMyLocationLat);
         int mMyLocationLatMin = (int) Math.abs((mMyLocationLat % 1) * 60);
         int mMyLocationLatSec = (int) Math.abs(Math.round(((((mMyLocationLat % 1) * 60) % 1) * 60)));
@@ -218,7 +230,7 @@ public class Navigation extends Activity implements LocationListener {
         mDistance = GeoUtils.distanceKm(mMyLocationLat, mMyLocationLon, mTargetLat,
                 mTargetLon);
 
-        GeoUtils.bearing(mMyLocationLat, mMyLocationLon, mTargetLat,
+        double ang = GeoUtils.bearing(mMyLocationLat, mMyLocationLon, mTargetLat,
                 mTargetLon);
 
         radarView.updateDistance(mDistance);
@@ -231,7 +243,7 @@ public class Navigation extends Activity implements LocationListener {
 		textDistance.setText(radarView.getDistanceView());
 
 		TextView textAngle = (TextView) findViewById(R.id.angleView);
-		textAngle.setText(radarView.getAngleView());
+		textAngle.setText(String.valueOf(Math.round(ang)));
 		
 		TextView viewLatitude = (TextView) findViewById(R.id.latitude);
 		viewLatitude.setTypeface(LCDTypeface);
@@ -239,13 +251,28 @@ public class Navigation extends Activity implements LocationListener {
 		viewLatitude.setText(StrMyLocationLat);
 		TextView viewSouth = (TextView) findViewById(R.id.south);
 		viewSouth.setText(south);
-		
+
 		TextView viewLongitude = (TextView) findViewById(R.id.longitude);
 		viewLongitude.setTypeface(LCDTypeface);
 		viewLongitude.setTextSize(25);
 		viewLongitude.setText(StrMyLocationLon); 
 		TextView viewWest = (TextView) findViewById(R.id.west);
 		viewWest.setText(west);
+		
+		TextView viewInfo = (TextView) findViewById(R.id.information);
+		viewInfo.setTypeface(LCDTypeface);
+		viewInfo.setTextSize(25);
+		if(targetPoints.getTargetPoint()!=null)
+			viewInfo.setText("TESTE.: " + targetPoints.getTargetPoint().getLatitudeE6());
+		else
+			viewInfo.setText("Nenhum alvo marcado");
+	
+//        Toast.makeText(getBaseContext(), 
+//                "Location changed : Lat: " + mMyLocationLat + 
+//                " Lng: " + mMyLocationLon, 
+//                Toast.LENGTH_SHORT).show();
+//		
+		
 	}
 /*
     @Override
