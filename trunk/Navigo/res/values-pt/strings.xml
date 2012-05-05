@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Navigo</string>
+    <string name="ac_maps">Mapa</string>
     <string name="ac_navigation">Navegação</string>
     <string name="ac_settings">Configurações</string>
     <string name="ac_about">Sobre</string>
