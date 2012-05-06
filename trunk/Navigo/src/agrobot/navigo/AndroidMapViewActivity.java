@@ -23,83 +23,61 @@ import android.location.LocationManager;
 import android.widget.Toast;
  
 public class AndroidMapViewActivity extends MapActivity {
-	 private LocationManager lm;
-	 private LocationListener locationListener;
-	 private MapView mapView;
-	 private MapController mc;
 	 MyItemizedOverlay myItemizedOverlay = null;
 	 MyLocationOverlay myLocationOverlay = null;
+	 MapController controller;
+	 MapView mapView;
 /** Called when the activity is first created. */
 @Override
 public void onCreate(Bundle savedInstanceState) {
-//    super.onCreate(savedInstanceState);
-//    setContentView(R.layout.maps);
-//    MapView mapView = (MapView) findViewById(R.id.mapview);
-//    mapView.setBuiltInZoomControls(true);
- 
-//    Drawable marker=getResources().getDrawable(android.R.drawable.star_big_on);
-//    int markerWidth = marker.getIntrinsicWidth();
-//    int markerHeight = marker.getIntrinsicHeight();
-//    marker.setBounds(0, markerHeight, markerWidth, 0);
-// 
-// 
-//    MyItemizedOverlay myItemizedOverlay
-//     = new MyItemizedOverlay(marker, AndroidMapViewActivity.this);
-//    mapView.getOverlays().add(myItemizedOverlay);
-//    lm = (LocationManager) 
-//            getSystemService(Context.LOCATION_SERVICE);    
-//        locationListener = new MyLocationListener();
-//        lm.requestLocationUpdates(
-//            LocationManager.GPS_PROVIDER, 
-//            0, 
-//            0, 
-//            locationListener);
-//        
-//        mapView = (MapView) findViewById(R.id.mapview);
-//        mc = mapView.getController();
-//    
-// 
-//	super.onCreate(savedInstanceState);
-//	setContentView(R.layout.maps);
-//
-//	//---use the LocationManager class to obtain GPS locations---
-//	lm = (LocationManager)
-//	getSystemService(Context.LOCATION_SERVICE);
-//	locationListener = new MyLocationListener();
-//	lm.requestLocationUpdates(
-//	LocationManager.GPS_PROVIDER,
-//	0,
-//	0,
-//	locationListener);
-//	mapView = (MapView) findViewById(R.id.mapview);
-//	mc = mapView.getController();
-	
 	 super.onCreate(savedInstanceState);
      setContentView(R.layout.maps);
-     MapView mapView = (MapView) findViewById(R.id.mapview);
+     mapView = (MapView) findViewById(R.id.mapview);
      mapView.setBuiltInZoomControls(true);
  //    mapView.getController().setZoom(17);
      mapView.setClickable(true);
      mapView.setEnabled(true);
      mapView.setSatellite(true);    
-    
+     mapView.setBuiltInZoomControls(true);
+     controller = mapView.getController();
      Drawable marker=getResources().getDrawable(android.R.drawable.star_big_on);
      int markerWidth = marker.getIntrinsicWidth();
      int markerHeight = marker.getIntrinsicHeight();
      marker.setBounds(0, markerHeight, markerWidth, 0);
+
+     
      
      myItemizedOverlay = new MyItemizedOverlay(marker,AndroidMapViewActivity.this);
      mapView.getOverlays().add(myItemizedOverlay);
     
-//     GeoPoint myPoint1 = new GeoPoint(0*1000000, 0*1000000);
-//     myItemizedOverlay.addItem(myPoint1, "myPoint1", "myPoint1");
-//     GeoPoint myPoint2 = new GeoPoint(50*1000000, 50*1000000);
-//     myItemizedOverlay.addItem(myPoint2, "myPoint2", "myPoint2");
+     
+     
      
      myLocationOverlay = new MyLocationOverlay(this, mapView);
      mapView.getOverlays().add(myLocationOverlay);
+     initMyLocation();
      mapView.postInvalidate();
+     
+     
+     
 }
+
+
+/** Start tracking the position on the map. */
+private void initMyLocation() {
+   final MyLocationOverlay overlay = new MyLocationOverlay(this, mapView);
+   overlay.enableMyLocation();
+   //overlay.enableCompass(); // does not work in emulator
+   overlay.runOnFirstFix(new Runnable() {
+      public void run() {
+         // Zoom in to current location
+         controller.setZoom(17);
+         controller.animateTo(overlay.getMyLocation());
+      }
+   });
+   mapView.getOverlays().add(overlay);
+}
+
 @Override
 protected boolean isLocationDisplayed() {
  // TODO Auto-generated method stub
