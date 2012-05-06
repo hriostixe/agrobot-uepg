@@ -214,6 +214,11 @@ public class Navigation extends Activity implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
+		
+		if( targetPoints.getTargetPoint()!=null){
+        	mTargetLat = targetPoints.getTargetPoint().getLatitudeE6() / (double) GeoUtils.MILLION;
+          	mTargetLon = targetPoints.getTargetPoint().getLongitudeE6() / (double) GeoUtils.MILLION;
+		}  	
         mMyLocationLat = location.getLatitude();
         mMyLocationLon = location.getLongitude();
         int mMyLocationLatDeg = (int) Math.abs(mMyLocationLat);
@@ -268,7 +273,7 @@ public class Navigation extends Activity implements LocationListener {
 			if((targetPoints.getFirstAngle()==0)){
 				targetPoints.setFirstAngle(ang);
 		        Toast.makeText(getBaseContext(), 
-		        	"entrou", 
+		        	"entrou"+ang, 
               Toast.LENGTH_SHORT).show();
 
 			}

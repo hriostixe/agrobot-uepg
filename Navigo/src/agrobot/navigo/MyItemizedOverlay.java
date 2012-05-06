@@ -38,9 +38,9 @@ public boolean onTap(GeoPoint p, MapView mapView) {
   
  targetPoints.setTargetPoint(p);
  targetPoints.setFirstAngle(0);
- Toast.makeText(context, 
-		 "Ini"+targetPoints.getFirstAngle(), 
-         Toast.LENGTH_SHORT).show();
+// Toast.makeText(context, 
+//		 ""+targetPoints.getFirstAngle(), 
+//         Toast.LENGTH_SHORT).show();
  String title = "pt:" + String.valueOf( " : Lat: " + p.getLatitudeE6() + 
          " Lng: " + p.getLongitudeE6());
  String snippet = "geo:\n"
