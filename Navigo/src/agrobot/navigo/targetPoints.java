@@ -5,6 +5,15 @@ import com.google.android.maps.GeoPoint;
 public class targetPoints {
 
 	public static GeoPoint targetPoint=null;
+	public static double firstAngle=0;
+
+	public static double getFirstAngle() {
+		return firstAngle;
+	}
+
+	public static void setFirstAngle(double firstAngle) {
+		targetPoints.firstAngle = firstAngle;
+	}
 
 	public static GeoPoint getTargetPoint() {
 		return targetPoint;
@@ -16,6 +25,7 @@ public class targetPoints {
 
 	public targetPoints() {
 		super();
+		
 		// TODO Auto-generated constructor stub
 	}
 	
