@@ -36,17 +36,19 @@ public boolean onTap(GeoPoint p, MapView mapView) {
   return true;
  }
   
- 
+ targetPoints.setTargetPoint(p);
+ targetPoints.setFirstAngle(0);
  Toast.makeText(context, 
-         " : Lat: " + p.getLatitudeE6() + 
-         " Lng: " + p.getLongitudeE6(), 
+		 "Ini"+targetPoints.getFirstAngle(), 
          Toast.LENGTH_SHORT).show();
- String title = "pt:" + String.valueOf(overlayItemList.size() + 1);
+ String title = "pt:" + String.valueOf( " : Lat: " + p.getLatitudeE6() + 
+         " Lng: " + p.getLongitudeE6());
  String snippet = "geo:\n"
    + String.valueOf(p.getLatitudeE6()) + "\n"
    + String.valueOf(p.getLongitudeE6());
- targetPoints.setTargetPoint(p);
+ 
  addItem(p, title, snippet);
+ 
   return true;
 }
  

@@ -134,31 +134,31 @@ private class MyLocationListener implements LocationListener
 {
     @Override
     public void onLocationChanged(Location loc) {
-        if (loc != null) {                
-            Toast.makeText(getBaseContext(), 
-                "Location changed : Lat: " + loc.getLatitude() + 
-                " Lng: " + loc.getLongitude(), 
-                Toast.LENGTH_SHORT).show();
-            
-            GeoPoint p = new GeoPoint(
-                    (int) (loc.getLatitude() * 1E6), 
-                    (int) (loc.getLongitude() * 1E6));
-            Drawable marker=getResources().getDrawable(android.R.drawable.star_big_on);
-            int markerWidth = marker.getIntrinsicWidth();
-            int markerHeight = marker.getIntrinsicHeight();
-            marker.setBounds(0, markerHeight, markerWidth, 0);
-         
-            mapView.getOverlays().clear();
-            HelloItemizedOverlay myItemizedOverlay = new HelloItemizedOverlay(marker, AndroidMapViewActivity.this);
-            mapView.getOverlays().add(myItemizedOverlay);
-            
-   
-            myItemizedOverlay.addItem(p, "myPoint1", "myPoint1");
-            
-            mc.animateTo(p);     
-            mc.setZoom(16);                
-            mapView.invalidate();
-        }
+//        if (loc != null) {                
+//            Toast.makeText(getBaseContext(), 
+//                "Location changed : Lat: " + loc.getLatitude() + 
+//                " Lng: " + loc.getLongitude(), 
+//                Toast.LENGTH_SHORT).show();
+//            
+//            GeoPoint p = new GeoPoint(
+//                    (int) (loc.getLatitude() * 1E6), 
+//                    (int) (loc.getLongitude() * 1E6));
+//            Drawable marker=getResources().getDrawable(android.R.drawable.star_big_on);
+//            int markerWidth = marker.getIntrinsicWidth();
+//            int markerHeight = marker.getIntrinsicHeight();
+//            marker.setBounds(0, markerHeight, markerWidth, 0);
+//         
+//            mapView.getOverlays().clear();
+//            HelloItemizedOverlay myItemizedOverlay = new HelloItemizedOverlay(marker, AndroidMapViewActivity.this);
+//            mapView.getOverlays().add(myItemizedOverlay);
+//            
+//   
+//            myItemizedOverlay.addItem(p, "myPoint1", "myPoint1");
+//            
+//            mc.animateTo(p);     
+//            mc.setZoom(16);                
+//            mapView.invalidate();
+//        }
     }
     @Override
     public void onProviderDisabled(String provider) {

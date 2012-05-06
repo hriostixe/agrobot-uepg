@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Navigation extends Activity implements LocationListener {
 	public static final String LOG_TAG = "Navigation";	
@@ -262,10 +263,22 @@ public class Navigation extends Activity implements LocationListener {
 		TextView viewInfo = (TextView) findViewById(R.id.information);
 		viewInfo.setTypeface(LCDTypeface);
 		viewInfo.setTextSize(25);
-		if(targetPoints.getTargetPoint()!=null)
+		if(targetPoints.getTargetPoint()!=null){
 			viewInfo.setText("TESTE.: " + targetPoints.getTargetPoint().getLatitudeE6());
-		else
+			if((targetPoints.getFirstAngle()==0)){
+				targetPoints.setFirstAngle(ang);
+		        Toast.makeText(getBaseContext(), 
+		        	"entrou", 
+              Toast.LENGTH_SHORT).show();
+
+			}
+		}else
 			viewInfo.setText("Nenhum alvo marcado");
+	
+		TextView viewAng= (TextView) findViewById(R.id.firstAngle);
+		viewAng.setTypeface(LCDTypeface);
+		viewAng.setTextSize(25);
+		viewAng.setText(String.valueOf(Math.round(targetPoints.getFirstAngle())));
 	
 //        Toast.makeText(getBaseContext(), 
 //                "Location changed : Lat: " + mMyLocationLat + 

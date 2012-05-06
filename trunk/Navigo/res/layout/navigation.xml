@@ -98,23 +98,18 @@
 						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/longitude" android:text="125º06,7554'" android:layout_weight="60" android:layout_width="0dp" android:gravity="right" android:textColor="@color/opaque_green"></TextView>
 						<TextView android:layout_height="wrap_content" android:text="O" android:layout_weight="10" android:layout_width="0dp" android:gravity="center" android:id="@+id/west" android:textSize="18sp"></TextView>
 					</LinearLayout>
+					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView06" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="1º Angulo:" android:textSize="12sp" android:layout_weight="30"></TextView>
+						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstAngle" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
+						
+					</LinearLayout>
+					
 					<TextView android:id="@+id/target" android:layout_height="wrap_content" android:text="" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
 				</LinearLayout>
 			</TableRow>
-			<TextView 
-				android:layout_weight="1" 
-				android:layout_gravity="center_horizontal" 
-				android:typeface="monospace" 
-				android:textSize="26sp" 
-				android:textColor="#FF00FF00" 
-				android:layout_height="wrap_content" 
-				android:layout_width="wrap_content" 
-				android:id="@+id/distancia"/>
 			<TextView android:textSize="15pt" 
 				android:layout_width="fill_parent" 
-				android:layout_height="0dp" 
-				android:layout_weight="1" 
-				android:gravity="bottom|center_horizontal" android:id="@+id/information" android:text="Novo teste"/>
+				android:gravity="bottom|center_horizontal" android:id="@+id/information" android:text="Aguardando sinal do GPS..." android:layout_height="129dp"/>
 		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>
