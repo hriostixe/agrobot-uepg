@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.widget.TextView;
+
 import android.widget.Toast;
-import android.app.Activity;
+
  
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;

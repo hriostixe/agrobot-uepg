@@ -1,7 +1,5 @@
 package fuz;
 
-import java.util.ArrayList;
-
 import fuzzy.EvaluationException;
 import fuzzy.FuzzyBlockOfRules;
 import fuzzy.FuzzyEngine;
@@ -11,33 +9,10 @@ import fuzzy.RulesParsingException;
 
 
 
-public class Fuzzy {
+public class FuzzyFuncionando {
 	public FuzzyEngine fuzzyEngine ;
-	ArrayList<VariavelLinguistica> myArr = new ArrayList<VariavelLinguistica>();
-	double start=0;
-	double leftTop=0;
-	double rightTop=0;
-	double finish=0;
 	
-	public ArrayList<VariavelLinguistica> createRanges(double line, int q){
-		double tam = line/q;
-		for(double i=0;i<q;i++){
-			start=leftTop;
-			leftTop=finish;
-			rightTop=leftTop;			
-			finish=leftTop+tam;			
-			if(finish>20)
-				finish=20;
-			
-			//System.out.println("("+(int)i+") In:"+start+" | L:"+leftTop+" | R:"+rightTop+" |"+finish);
-			VariavelLinguistica vl = new VariavelLinguistica(start, leftTop, rightTop, finish,String.valueOf(i));
-			myArr.add((int)i,vl);
-		}	
-		return myArr;	
-		
-	}
-	
-	public Fuzzy() {
+	public FuzzyFuncionando() {
 		// TODO Auto-generated constructor stub
 	}
 

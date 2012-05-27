@@ -3,15 +3,16 @@ package agrobot.navigo;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.annotation.Target;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
 
 
 
 
-import android.R.integer;
+
 import android.draw.GeoUtils;
 import android.app.Activity;
 import android.content.Context;
@@ -241,6 +242,7 @@ public class Navigation extends Activity implements LocationListener {
 
         radarView.updateDistance(mDistance);
         
+        
 		// show the received location in the view
         
         Typeface LCDTypeface = Typeface.createFromAsset(this.getAssets(),"DS-DIGII.TTF"); 
@@ -272,10 +274,12 @@ public class Navigation extends Activity implements LocationListener {
 			viewInfo.setText("TESTE.: " + targetPoints.getTargetPoint().getLatitudeE6());
 			if((targetPoints.getFirstAngle()==0)){
 				targetPoints.setFirstAngle(ang);
+				targetPoints.setHipotenusa(mDistance);
+				targetPoints.makeTriangle();
 		        Toast.makeText(getBaseContext(), 
 		        	"entrou"+ang, 
               Toast.LENGTH_SHORT).show();
-
+		        
 			}
 		}else
 			viewInfo.setText("Nenhum alvo marcado");
