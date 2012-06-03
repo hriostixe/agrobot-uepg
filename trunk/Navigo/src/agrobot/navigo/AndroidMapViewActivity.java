@@ -3,24 +3,15 @@ package agrobot.navigo;
 
 
 
-import java.util.List;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
-import com.google.android.maps.Overlay;
- 
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-
-import android.widget.Toast;
  
 public class AndroidMapViewActivity extends MapActivity {
 	 MyItemizedOverlay myItemizedOverlay = null;

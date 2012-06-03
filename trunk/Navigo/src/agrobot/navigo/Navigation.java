@@ -7,7 +7,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
+
+import com.google.android.maps.GeoPoint;
+
+import fuz.Fuzzy;
+import fuz.Fuzzy2;
+import fuz.Ranges;
+import fuz.VariavelLinguistica;
+
 
 
 
@@ -126,9 +133,10 @@ public class Navigation extends Activity implements LocationListener {
         
         // Read the target from our intent
         Intent i = getIntent();
-        if( targetPoints.getTargetPoint()!=null){
-        	mTargetLat = targetPoints.getTargetPoint().getLatitudeE6() / (double) GeoUtils.MILLION;
-          	mTargetLon = targetPoints.getTargetPoint().getLongitudeE6() / (double) GeoUtils.MILLION;
+        
+        if( Point.getTargetPoint()!=null){//        	ja marcou um target
+        	mTargetLat = Point.getTargetPoint().getLatitudeE6() / (double) GeoUtils.MILLION;
+          	mTargetLon = Point.getTargetPoint().getLongitudeE6() / (double) GeoUtils.MILLION;
 
         }else{
 	        int latE6 = (int)(i.getFloatExtra("latitude", (float) -25.113324) * GeoUtils.MILLION);
@@ -140,6 +148,8 @@ public class Navigation extends Activity implements LocationListener {
 
 	}
 
+
+	
 	/** Define a mock GPS provider as an asynchronous task of this Activity. */
 	private class MockGpsProvider extends AsyncTask<String, Integer, Void> {
 		public static final String LOG_TAG = "GpsMockProvider";
@@ -216,9 +226,9 @@ public class Navigation extends Activity implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		
-		if( targetPoints.getTargetPoint()!=null){
-        	mTargetLat = targetPoints.getTargetPoint().getLatitudeE6() / (double) GeoUtils.MILLION;
-          	mTargetLon = targetPoints.getTargetPoint().getLongitudeE6() / (double) GeoUtils.MILLION;
+		if(Point.getTargetPoint()!=null){ //já pegou o target
+        	mTargetLat = Point.getTargetPoint().getLatitudeE6() / (double) GeoUtils.MILLION;
+          	mTargetLon = Point.getTargetPoint().getLongitudeE6() / (double) GeoUtils.MILLION;
 		}  	
         mMyLocationLat = location.getLatitude();
         mMyLocationLon = location.getLongitude();
@@ -270,28 +280,84 @@ public class Navigation extends Activity implements LocationListener {
 		TextView viewInfo = (TextView) findViewById(R.id.information);
 		viewInfo.setTypeface(LCDTypeface);
 		viewInfo.setTextSize(25);
-		if(targetPoints.getTargetPoint()!=null){
-			viewInfo.setText("TESTE.: " + targetPoints.getTargetPoint().getLatitudeE6());
-			if((targetPoints.getFirstAngle()==0)){
-				targetPoints.setFirstAngle(ang);
-				targetPoints.setHipotenusa(mDistance);
-				targetPoints.makeTriangle();
+		if(Point.getTargetPoint()!=null){
+			//entao temos já marcado o target
+			//viewInfo.setText("TESTE.: " + Point.getTargetPoint().getLatitudeE6());
+			if((Point.getFirstLatitude()==0)){
+//				marca o primeiro ponto
+				Point.setFirstAngle(ang);
+				Point.setFirstHipotenusa(mDistance);
+				Point.setFirstCatetoOposto(Point.makeTriangle("Oposto", mDistance, ang));
+				Point.setFirstCatetoAdjacente(Point.makeTriangle("Adjascente", mDistance,ang));
+				Point.setFirstLatitude(mMyLocationLat);
+				Point.setFirstLatitude(mMyLocationLon);
+				Fuzzy.createRules();
+//				Ranges r = new Ranges();
+//				ArrayList<VariavelLinguistica> dirX = r.createRanges((int) Point.getCatetoAdjacente(), 5, rX);
+//				ArrayList<VariavelLinguistica> dirY = r.createRanges((int) Point.getCatetoOposto(), 5, rY);
+//				String a=Fuzzy2.doFuzzy(dirX,dirY);
 		        Toast.makeText(getBaseContext(), 
-		        	"entrou"+ang, 
+              "co"+Point.getFirstCatetoOposto()+"\n ca"+Point.getFirstCatetoAdjacente()
+              +"\n an"+ang+"\n d"+mDistance, 
               Toast.LENGTH_SHORT).show();
+
+//		        Toast.makeText(getBaseContext(), 
+//		        	"entrou"+ang, 
+//              Toast.LENGTH_SHORT).show();
 		        
+			}else{
+				double newHipotenusa = GeoUtils.distanceKm(Point.getFirstLatitude(),Point.getFirstLongitude(), 
+						mMyLocationLat, mMyLocationLon);
+
+		        double newAngulo     = GeoUtils.bearing(Point.getFirstLatitude(),Point.getFirstLongitude(),
+		        		mMyLocationLat, mMyLocationLon);
+				
+			    double newOposto = Point.makeTriangle("Oposto",  newHipotenusa, newAngulo);
+				double newAdj    = Point.makeTriangle("Adjascente",  newHipotenusa, newAngulo);					
+				
+				String extersao = Fuzzy.doFuzzy(newOposto,newAdj);
+				viewInfo.setText("Extersao:"+String.valueOf(extersao));
+				TextView viewHip= (TextView) findViewById(R.id.firstHip);
+				viewHip.setTypeface(LCDTypeface);
+				viewHip.setTextSize(25);
+				viewHip.setText(String.valueOf(newHipotenusa));
+				TextView viewAdj= (TextView) findViewById(R.id.firstAdj);
+				viewAdj.setTypeface(LCDTypeface);
+				viewAdj.setTextSize(25);
+				viewAdj.setText(String.valueOf(newAdj));
+				TextView viewOpo= (TextView) findViewById(R.id.firstOposto);
+				viewOpo.setTypeface(LCDTypeface);
+				viewOpo.setTextSize(25);
+				viewOpo.setText(String.valueOf(newOposto));
+
 			}
-		}else
+		}else{
 			viewInfo.setText("Nenhum alvo marcado");
-	
+		}	
+//		Point.setAngle(ang);
+//		Point.setHipotenusa(mDistance);
+//		Point.setCatetoOposto((int)Point.makeTriangle("Oposto", mDistance,(int) ang));
+//		Point.setCatetoAdjacente((int)Point.makeTriangle("Adjascente", mDistance,(int)ang));
+//		Ranges r = new Ranges();
+//		String rX[] = {"ME", "E", "N", "D", "MD"};
+//		String rY[] = {"MB", "B", "Ne", "A", "MA"};
+//		ArrayList<VariavelLinguistica> dirX = r.createRanges(mDistance*Math.sin(ang) , 5, rX);
+//		ArrayList<VariavelLinguistica> dirY = r.createRanges(mDistance*Math.cos(ang), 5, rY);
+//		String a=Fuzzy2.doFuzzy(dirX,dirY);
+//        Toast.makeText(getBaseContext(), 
+//      "co"+(mDistance*Math.sin(ang))+"\n ca"+(mDistance*Math.cos(ang))
+//      +"\n an"+ang+"\n d"+mDistance, 
+//      Toast.LENGTH_SHORT).show();
+
+		
 		TextView viewAng= (TextView) findViewById(R.id.firstAngle);
 		viewAng.setTypeface(LCDTypeface);
 		viewAng.setTextSize(25);
-		viewAng.setText(String.valueOf(Math.round(targetPoints.getFirstAngle())));
+		viewAng.setText(String.valueOf(ang));
+		//viewAng.setText(String.valueOf(Math.round(Point.getFirstAngle())));
 	
 //        Toast.makeText(getBaseContext(), 
-//                "Location changed : Lat: " + mMyLocationLat + 
-//                " Lng: " + mMyLocationLon, 
+//                ""+Fuzzy2.doFuzzy(), 
 //                Toast.LENGTH_SHORT).show();
 //		
 		

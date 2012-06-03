@@ -1,9 +1,7 @@
 package fuz;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
-import agrobot.navigo.Point;
+import java.util.ArrayList;
 
 import fuzzy.EvaluationException;
 import fuzzy.FuzzyBlockOfRules;
@@ -14,27 +12,37 @@ import fuzzy.RulesParsingException;
 
 
 
-public class Fuzzy {
+public class Fuzzy2 {
 	public FuzzyEngine fuzzyEngine ;
-	public static String rotulosX[] = {"ME", "E", "N", "D", "MD"};
-	public static String rotulosY[] = {"MB", "B", "Ne", "A", "MA"};
-	public static ArrayList<VariavelLinguistica> dirX;
-	public static ArrayList<VariavelLinguistica> dirY;
 	
-	public Fuzzy() {
+	public Fuzzy2() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public static String doFuzzy(double x,double y){
+	/**
+	 * @param args
+	 */
+	public static String doFuzzy(ArrayList<VariavelLinguistica> dirX,ArrayList<VariavelLinguistica> dirY) {
+		// TODO Auto-generated method stub
+		//System.out.println("teste");
 		
 		LinguisticVariable direcao = new LinguisticVariable("direcao");
+		//angulo.add(name, start, left_top, right_top, finish)
+//		direcao.add("ME",0,0,0,5); 
+//		direcao.add("E",0,5,5,10);
+//		direcao.add("N",5,10,10,15);
+//		direcao.add("D",10,15,15,20); 
+//		direcao.add("MD",15,20,20,20);		
 		for(int i =0;i<dirX.size();i++){
 			direcao.add(dirX.get(i).getName(),dirX.get(i).getStart(),dirX.get(i).getLeftTop(),dirX.get(i).getRightTop(),dirX.get(i).getFinish());
 		}
 
 		LinguisticVariable posicao = new LinguisticVariable("posicao"); 
+//		posicao.add("MB",0,0,0,5); 
+//		posicao.add("B",0,5,5,10);
+//		posicao.add("Ne",5,10,10,15);
+//		posicao.add("A",10,15,15,20); 
+//		posicao.add("MA",15,20,20,20);
 		for(int i =0;i<dirY.size();i++){
 			posicao.add(dirY.get(i).getName(),dirY.get(i).getStart(),dirY.get(i).getLeftTop(),dirY.get(i).getRightTop(),dirY.get(i).getFinish());
 		}
@@ -80,11 +88,11 @@ public class Fuzzy {
 				"if direcao is MD and posicao is Ne then angulo is BD \n" +
 				"if direcao is MD and posicao is A then angulo is D \n" +
 				"if direcao is MD and posicao is MA then angulo is M " 
-		);
+				);
 		fuzzyEngine.register(fuzzyBlockOfRules);
 		
-		direcao.setInputValue(x);
-		posicao.setInputValue(y);
+		direcao.setInputValue(0);
+		posicao.setInputValue(1);
 	
 		String result="a";
 		
@@ -106,28 +114,6 @@ public class Fuzzy {
 		} 
 
 		return result;
-		 
-		
-		
-	}
-	
-	
-	public static void createRules(){
-		Ranges   r = new Ranges();
-		dirX = r.createRanges((int) Point.getFirstCatetoAdjacente(), 5, rotulosX);
-		dirY = r.createRanges((int) Point.getFirstCatetoOposto(), 5, rotulosY);
-	}
-	
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("teste");
-		
-		
-		
 		 
 		
 		
