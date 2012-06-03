@@ -103,13 +103,28 @@
 						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstAngle" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
 						
 					</LinearLayout>
+					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView07" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="Hip:" android:textSize="12sp" android:layout_weight="30"></TextView>
+						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstHip" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
+						
+					</LinearLayout>
+					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView08" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="Oposto:" android:textSize="12sp" android:layout_weight="30"></TextView>
+						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstOposto" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
+						
+					</LinearLayout>
+						<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView09" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="Adj:" android:textSize="12sp" android:layout_weight="30"></TextView>
+						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstAdj" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
+						
+					</LinearLayout>
 					
 					<TextView android:id="@+id/target" android:layout_height="wrap_content" android:text="" android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"></TextView>
 				</LinearLayout>
 			</TableRow>
 			<TextView android:textSize="15pt" 
 				android:layout_width="fill_parent" 
-				android:gravity="bottom|center_horizontal" android:id="@+id/information" android:text="Aguardando sinal do GPS..." android:layout_height="129dp"/>
+				android:gravity="bottom|center_horizontal" android:id="@+id/information" android:text="Aguardando sinal do GPS..." android:layout_height="92dp"/>
 		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>

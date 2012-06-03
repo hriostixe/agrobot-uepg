@@ -35,9 +35,11 @@ public boolean onTap(GeoPoint p, MapView mapView) {
  if(super.onTap(p, mapView)){
   return true;
  }
-  
- targetPoints.setTargetPoint(p);
- targetPoints.setFirstAngle(0);
+
+ 
+ /*** marcar o ponto de alvo (target) **/
+Point.setTargetPoint(p);
+Point.setFirstAngle(0);
 // Toast.makeText(context, 
 //		 ""+targetPoints.getFirstAngle(), 
 //         Toast.LENGTH_SHORT).show();

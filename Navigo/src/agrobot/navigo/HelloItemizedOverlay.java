@@ -7,7 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.widget.Toast;
+
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;

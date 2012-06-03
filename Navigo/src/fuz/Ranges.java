@@ -1,30 +1,40 @@
 package fuz;
 
+import java.util.ArrayList;
+
 public class Ranges {
 
-	static double start=0;
-	static double leftTop=0;
-	static double rightTop=0;
-	static double finish=0;
 	
 	public Ranges() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
-	public static void main(String[] args) {
-		double tam =  20/5;
-		double i=0;
-		while(i<tam){
-			finish=tam;				
+	public ArrayList<VariavelLinguistica> createRanges(double line, int q, String[] rotulos){
+		double tam = line/q;
+		double start=0;
+		double leftTop=0;
+		double rightTop=0;
+		double finish=0;
+		ArrayList<VariavelLinguistica> myArr = new ArrayList<VariavelLinguistica>();
+		for(double i=0;i<q;i++){
 			start=leftTop;
+			if(i+1==q){
+				finish=finish+tam;
+				tam=0;
+			}	
 			leftTop=finish;
-			rightTop=leftTop;				
-			i=i+tam;	
-			System.out.println("In:"+start+" | L:"+leftTop+" | R:"+rightTop+" |"+finish);
-		}
+			rightTop=leftTop;			
+			finish=leftTop+tam;			
+			
+			
+			//System.out.println("("+(int)i+") In:"+start+" | L:"+leftTop+" | R:"+rightTop+" |"+finish);
+			VariavelLinguistica vl = new VariavelLinguistica(start, leftTop, rightTop, finish,rotulos[(int)i]);
+			myArr.add((int)i,vl);
+		}	
+		return myArr;	
+		
 	}
-	
 }
 
 	
