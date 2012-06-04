@@ -124,7 +124,7 @@
 			</TableRow>
 			<TextView android:textSize="15pt" 
 				android:layout_width="fill_parent" 
-				android:gravity="bottom|center_horizontal" android:id="@+id/information" android:text="Aguardando sinal do GPS..." android:layout_height="92dp"/>
+				android:gravity="bottom|center_horizontal" android:id="@+id/information" android:text="Aguardando sinal do GPS..." android:layout_height="76dp"/>
 		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>

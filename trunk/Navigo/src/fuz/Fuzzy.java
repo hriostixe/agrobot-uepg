@@ -1,6 +1,6 @@
 package fuz;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 
 import agrobot.navigo.Point;
@@ -30,6 +30,7 @@ public class Fuzzy {
 	public static String doFuzzy(double x,double y){
 		
 		LinguisticVariable direcao = new LinguisticVariable("direcao");
+		
 		for(int i =0;i<dirX.size();i++){
 			direcao.add(dirX.get(i).getName(),dirX.get(i).getStart(),dirX.get(i).getLeftTop(),dirX.get(i).getRightTop(),dirX.get(i).getFinish());
 		}
@@ -83,6 +84,10 @@ public class Fuzzy {
 		);
 		fuzzyEngine.register(fuzzyBlockOfRules);
 		
+		if(x>dirX.get(dirX.size()-1).getFinish() )
+			x=dirX.get(dirX.size()-1).getFinish() ;
+		if(y>dirY.get(dirY.size()-1).getFinish())
+			y=dirY.get(dirY.size()-1).getFinish() ;
 		direcao.setInputValue(x);
 		posicao.setInputValue(y);
 	
@@ -125,13 +130,6 @@ public class Fuzzy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("teste");
-		
-		
-		
-		 
-		
-		
-		
 		
 	}
 

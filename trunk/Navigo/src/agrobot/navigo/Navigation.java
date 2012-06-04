@@ -244,11 +244,9 @@ public class Navigation extends Activity implements LocationListener {
         String StrMyLocationLon = String.format(Locale.getDefault(), "%dº%02d'%02d\"", mMyLocationLonDeg, mMyLocationLonMin, mMyLocationLonSec);
         String west = mMyLocationLon < 0 ? "O" : "L";
         
-        mDistance = GeoUtils.distanceKm(mMyLocationLat, mMyLocationLon, mTargetLat,
-                mTargetLon);
+        mDistance      = GeoUtils.distanceKm(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon);
 
-        double ang = GeoUtils.bearing(mMyLocationLat, mMyLocationLon, mTargetLat,
-                mTargetLon);
+        double   ang   = GeoUtils.bearing(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon);
 
         radarView.updateDistance(mDistance);
         
@@ -283,21 +281,21 @@ public class Navigation extends Activity implements LocationListener {
 		if(Point.getTargetPoint()!=null){
 			//entao temos já marcado o target
 			//viewInfo.setText("TESTE.: " + Point.getTargetPoint().getLatitudeE6());
-			if((Point.getFirstLatitude()==0)){
+			if((Point.getTargetLatitude()==0)){
 //				marca o primeiro ponto
-				Point.setFirstAngle(ang);
-				Point.setFirstHipotenusa(mDistance);
-				Point.setFirstCatetoOposto(Point.makeTriangle("Oposto", mDistance, ang));
-				Point.setFirstCatetoAdjacente(Point.makeTriangle("Adjascente", mDistance,ang));
+				Point.setTargetAngle(ang);
+				Point.setTargetHipotenusa(mDistance);
+				Point.setTargetCatetoOposto(Point.makeTriangle("Oposto", mDistance, ang));
+				Point.setTargetCatetoAdjacente(Point.makeTriangle("Adjascente", mDistance,ang));
 				Point.setFirstLatitude(mMyLocationLat);
-				Point.setFirstLatitude(mMyLocationLon);
+				Point.setFirstLongitude(mMyLocationLon);
 				Fuzzy.createRules();
 //				Ranges r = new Ranges();
 //				ArrayList<VariavelLinguistica> dirX = r.createRanges((int) Point.getCatetoAdjacente(), 5, rX);
 //				ArrayList<VariavelLinguistica> dirY = r.createRanges((int) Point.getCatetoOposto(), 5, rY);
 //				String a=Fuzzy2.doFuzzy(dirX,dirY);
 		        Toast.makeText(getBaseContext(), 
-              "co"+Point.getFirstCatetoOposto()+"\n ca"+Point.getFirstCatetoAdjacente()
+              "co"+Point.getTargetCatetoOposto()+"\n ca"+Point.getTargetCatetoAdjacente()
               +"\n an"+ang+"\n d"+mDistance, 
               Toast.LENGTH_SHORT).show();
 
@@ -306,6 +304,8 @@ public class Navigation extends Activity implements LocationListener {
 //              Toast.LENGTH_SHORT).show();
 		        
 			}else{
+				
+				
 				double newHipotenusa = GeoUtils.distanceKm(Point.getFirstLatitude(),Point.getFirstLongitude(), 
 						mMyLocationLat, mMyLocationLon);
 
@@ -315,21 +315,24 @@ public class Navigation extends Activity implements LocationListener {
 			    double newOposto = Point.makeTriangle("Oposto",  newHipotenusa, newAngulo);
 				double newAdj    = Point.makeTriangle("Adjascente",  newHipotenusa, newAngulo);					
 				
-				String extersao = Fuzzy.doFuzzy(newOposto,newAdj);
+				String extersao = Fuzzy.doFuzzy(newAdj,newOposto);
 				viewInfo.setText("Extersao:"+String.valueOf(extersao));
+				
 				TextView viewHip= (TextView) findViewById(R.id.firstHip);
 				viewHip.setTypeface(LCDTypeface);
-				viewHip.setTextSize(25);
+				viewHip.setTextSize(10);
 				viewHip.setText(String.valueOf(newHipotenusa));
+				
 				TextView viewAdj= (TextView) findViewById(R.id.firstAdj);
 				viewAdj.setTypeface(LCDTypeface);
-				viewAdj.setTextSize(25);
+				viewAdj.setTextSize(10);
 				viewAdj.setText(String.valueOf(newAdj));
+				
 				TextView viewOpo= (TextView) findViewById(R.id.firstOposto);
 				viewOpo.setTypeface(LCDTypeface);
-				viewOpo.setTextSize(25);
+				viewOpo.setTextSize(10);
 				viewOpo.setText(String.valueOf(newOposto));
-
+				
 			}
 		}else{
 			viewInfo.setText("Nenhum alvo marcado");
@@ -352,7 +355,7 @@ public class Navigation extends Activity implements LocationListener {
 		
 		TextView viewAng= (TextView) findViewById(R.id.firstAngle);
 		viewAng.setTypeface(LCDTypeface);
-		viewAng.setTextSize(25);
+		viewAng.setTextSize(10);
 		viewAng.setText(String.valueOf(ang));
 		//viewAng.setText(String.valueOf(Math.round(Point.getFirstAngle())));
 	
