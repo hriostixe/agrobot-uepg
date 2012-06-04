@@ -39,7 +39,9 @@ public boolean onTap(GeoPoint p, MapView mapView) {
  
  /*** marcar o ponto de alvo (target) **/
 Point.setTargetPoint(p);
-Point.setFirstAngle(0);
+Point.setTargetAngle(0);
+Point.setTargetLatitude(0);
+Point.setFirstLatitude(0);
 // Toast.makeText(context, 
 //		 ""+targetPoints.getFirstAngle(), 
 //         Toast.LENGTH_SHORT).show();
