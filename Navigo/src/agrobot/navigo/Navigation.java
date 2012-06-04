@@ -281,7 +281,7 @@ public class Navigation extends Activity implements LocationListener {
 		if(Point.getTargetPoint()!=null){
 			//entao temos já marcado o target
 			//viewInfo.setText("TESTE.: " + Point.getTargetPoint().getLatitudeE6());
-			if((Point.getTargetLatitude()==0)){
+			if((Point.getFirstLatitude()==0)){
 //				marca o primeiro ponto
 				Point.setTargetAngle(ang);
 				Point.setTargetHipotenusa(mDistance);
