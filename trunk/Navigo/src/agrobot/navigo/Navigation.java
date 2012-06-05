@@ -304,16 +304,24 @@ public class Navigation extends Activity implements LocationListener {
 //              Toast.LENGTH_SHORT).show();
 		        
 			}else{
-				
+				double newAdj,newOposto;
 				
 				double newHipotenusa = GeoUtils.distanceKm(Point.getFirstLatitude(),Point.getFirstLongitude(), 
 						mMyLocationLat, mMyLocationLon);
 
 		        double newAngulo     = GeoUtils.bearing(Point.getFirstLatitude(),Point.getFirstLongitude(),
 		        		mMyLocationLat, mMyLocationLon);
-				
-			    double newOposto = Point.makeTriangle("Oposto",  newHipotenusa, newAngulo);
-				double newAdj    = Point.makeTriangle("Adjascente",  newHipotenusa, newAngulo);					
+
+				if(Point.getFirstLatitude()>mMyLocationLat){
+					newAdj=0;
+				}else{
+					newAdj    = Point.makeTriangle("Adjascente",  newHipotenusa, newAngulo);	
+				}
+				if(Point.getFirstLongitude()>mMyLocationLon){
+					newOposto=0;
+				}else{
+					newOposto = Point.makeTriangle("Oposto",  newHipotenusa, newAngulo);
+				}					
 				
 				String extersao = Fuzzy.doFuzzy(newAdj,newOposto);
 				viewInfo.setText("Extersao:"+String.valueOf(extersao));
