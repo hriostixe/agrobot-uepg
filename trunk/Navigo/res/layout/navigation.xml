@@ -99,7 +99,7 @@
 						<TextView android:layout_height="wrap_content" android:text="O" android:layout_weight="10" android:layout_width="0dp" android:gravity="center" android:id="@+id/west" android:textSize="18sp"></TextView>
 					</LinearLayout>
 					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView06" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="1º Angulo:" android:textSize="12sp" android:layout_weight="30"></TextView>
+						<TextView android:gravity="left|center_vertical" android:textSize="12sp" android:id="@+id/TextView06" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:layout_weight="30" android:text="1º Ang:" android:layout_width="0dp"></TextView>
 						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstAngle" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
 						
 					</LinearLayout>

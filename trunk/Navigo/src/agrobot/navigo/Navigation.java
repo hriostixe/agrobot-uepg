@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +21,7 @@ import fuz.VariavelLinguistica;
 
 
 
+import agrobot.navigo.R.string;
 import android.draw.GeoUtils;
 import android.app.Activity;
 import android.content.Context;
@@ -49,6 +51,7 @@ public class Navigation extends Activity implements LocationListener {
     private static final int MENU_METRIC = Menu.FIRST + 2;
     private static final String RADAR = "radar";
     private static final String PREF_METRIC = "metric";
+    
     private RadarView radarView;
     private SharedPreferences mPrefs;
 
@@ -57,7 +60,7 @@ public class Navigation extends Activity implements LocationListener {
     private double mMyLocationLat;
     private double mMyLocationLon;
     
-
+    public static final double AUMENTO=1000;
     private double mDistance; //Distance to target, in KM
    
 	@Override
@@ -246,7 +249,7 @@ public class Navigation extends Activity implements LocationListener {
         
         mDistance      = GeoUtils.distanceKm(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon);
 
-        double   ang   = GeoUtils.bearing(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon);
+        double   ang   = Math.round(GeoUtils.bearing(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon));
 
         radarView.updateDistance(mDistance);
         
@@ -278,15 +281,17 @@ public class Navigation extends Activity implements LocationListener {
 		TextView viewInfo = (TextView) findViewById(R.id.information);
 		viewInfo.setTypeface(LCDTypeface);
 		viewInfo.setTextSize(25);
+		DecimalFormat f = new DecimalFormat("0.####");
+		
 		if(Point.getTargetPoint()!=null){
 			//entao temos já marcado o target
 			//viewInfo.setText("TESTE.: " + Point.getTargetPoint().getLatitudeE6());
 			if((Point.getFirstLatitude()==0)){
 //				marca o primeiro ponto
 				Point.setTargetAngle(ang);
-				Point.setTargetHipotenusa(mDistance);
-				Point.setTargetCatetoOposto(Point.makeTriangle("Oposto", mDistance, ang));
-				Point.setTargetCatetoAdjacente(Point.makeTriangle("Adjascente", mDistance,ang));
+				Point.setTargetHipotenusa(mDistance*AUMENTO);
+				Point.setTargetCatetoOposto(Point.makeTriangle("Oposto", mDistance*AUMENTO, (ang)));
+				Point.setTargetCatetoAdjacente(Point.makeTriangle("Adjascente", mDistance*AUMENTO,(ang)));
 				Point.setFirstLatitude(mMyLocationLat);
 				Point.setFirstLongitude(mMyLocationLon);
 				Fuzzy.createRules();
@@ -306,12 +311,13 @@ public class Navigation extends Activity implements LocationListener {
 			}else{
 				double newAdj,newOposto;
 				
-				double newHipotenusa = GeoUtils.distanceKm(Point.getFirstLatitude(),Point.getFirstLongitude(), 
-						mMyLocationLat, mMyLocationLon);
+				double newHipotenusa =  (GeoUtils.distanceKm(Point.getFirstLatitude(),Point.getFirstLongitude(), 
+						mMyLocationLat, mMyLocationLon))*AUMENTO;
 
-		        double newAngulo     = GeoUtils.bearing(Point.getFirstLatitude(),Point.getFirstLongitude(),
-		        		mMyLocationLat, mMyLocationLon);
+		        double newAngulo     = Math.round(GeoUtils.bearing(Point.getFirstLatitude(),Point.getFirstLongitude(),
+		        		mMyLocationLat, mMyLocationLon));
 
+		        
 				if(Point.getFirstLatitude()>mMyLocationLat){
 					newAdj=0;
 				}else{
@@ -328,18 +334,19 @@ public class Navigation extends Activity implements LocationListener {
 				
 				TextView viewHip= (TextView) findViewById(R.id.firstHip);
 				viewHip.setTypeface(LCDTypeface);
-				viewHip.setTextSize(10);
-				viewHip.setText(String.valueOf(newHipotenusa));
+				viewHip.setTextSize(20);
+				viewHip.setText(f.format(newHipotenusa));
 				
 				TextView viewAdj= (TextView) findViewById(R.id.firstAdj);
 				viewAdj.setTypeface(LCDTypeface);
-				viewAdj.setTextSize(10);
-				viewAdj.setText(String.valueOf(newAdj));
+				viewAdj.setTextSize(20);
+				viewAdj.setText(String.valueOf(newAngulo));
 				
 				TextView viewOpo= (TextView) findViewById(R.id.firstOposto);
 				viewOpo.setTypeface(LCDTypeface);
-				viewOpo.setTextSize(10);
-				viewOpo.setText(String.valueOf(newOposto));
+				viewOpo.setTextSize(20);
+				//viewOpo.setText(String.valueOf(newOposto));
+				viewOpo.setText("");
 				
 			}
 		}else{
@@ -363,8 +370,8 @@ public class Navigation extends Activity implements LocationListener {
 		
 		TextView viewAng= (TextView) findViewById(R.id.firstAngle);
 		viewAng.setTypeface(LCDTypeface);
-		viewAng.setTextSize(10);
-		viewAng.setText(String.valueOf(ang));
+		viewAng.setTextSize(20);
+		viewAng.setText(f.format(ang));
 		//viewAng.setText(String.valueOf(Math.round(Point.getFirstAngle())));
 	
 //        Toast.makeText(getBaseContext(), 
