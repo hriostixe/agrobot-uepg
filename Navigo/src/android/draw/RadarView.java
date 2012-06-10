@@ -62,6 +62,10 @@ public class RadarView extends View  {
         "%.0fm", "%.0fm", "%.0fm", "%.0fm", "%.0fm", "%.1fkm", "%.1fkm", "%.0fkm", "%.0fkm", "%.0fkm",
         "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm" };
     
+    private static String mMetricDisplayFormats2[] = {
+        "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.1f", "%.1f", "%.0f", "%.0f", "%.0f",
+        "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f" };
+    
     /**
      * This array holds the formatting string used to display the distance on
      * each ring of the radar screen. (This array is for metric measurements.)
@@ -69,6 +73,10 @@ public class RadarView extends View  {
     private static String mMetricScaleFormats[] = {
         "%.0fm", "%.0fm", "%.0fm", "%.0fm", "%.0fm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm",
         "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm", "%.0fkm" };
+    
+    private static String mMetricScaleFormats2[] = {
+        "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f",
+        "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f", "%.0f" };
     
     private static float KM_PER_YARDS = 0.0009144f;
     private static float KM_PER_MILES = 1.609344f;
@@ -357,6 +365,46 @@ public class RadarView extends View  {
         setDistanceView(distanceStr);
     }
 
+    
+    public double formatDistance(double distanceKm) {
+        final double[] scaleChoices;
+        final float[] displayUnitsPerKm;
+        final String[] displayFormats;
+        final String[] scaleFormats;
+        String distanceStr = null;
+        
+        scaleChoices = mMetricScaleChoices;
+        displayUnitsPerKm = mMetricDisplayUnitsPerKm;
+        displayFormats = mMetricDisplayFormats2;
+        scaleFormats = mMetricScaleFormats2;
+        
+        
+        int count = scaleChoices.length;
+        for (int i = 0; i < count; i++) {
+            if (distanceKm < scaleChoices[i] || i == (count - 1)) {
+                String format = displayFormats[i];
+                double distanceDisplay = distanceKm * displayUnitsPerKm[i];
+                if (mLastScale != i) {
+                    mLastScale = i;
+                    String scaleFormat = scaleFormats[i];
+                    float scaleDistance = (float) (scaleChoices[i] * displayUnitsPerKm[i]);
+                    mDistanceScale[0] = String.format(scaleFormat, (scaleDistance / 4));
+                    mDistanceScale[1] = String.format(scaleFormat, (scaleDistance / 2));
+                    mDistanceScale[2] = String.format(scaleFormat, (scaleDistance * 3 / 4));
+                    mDistanceScale[3] = String.format(scaleFormat, scaleDistance);
+                }
+                mDistanceRatio = (float) (mDistance / scaleChoices[mLastScale]);
+                distanceStr = String.format(format, distanceDisplay);
+                break;
+            }
+        }
+        //setAngleView(String.format("%.1fº", bearingToTarget));
+        //setDistanceView(distanceStr);
+        return Double.parseDouble(distanceStr);
+    }
+
+
+    
     /**
      * Update state to reflect whether we are using metric or standard units.
      * 
