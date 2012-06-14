@@ -235,9 +235,9 @@ public class Point {
 	public static double makeTriangle(String tipo, double hip,double ang){
 		try{
 			if(tipo=="Oposto")
-				return hip * Math.sin(ang);
+				return Math.abs(hip * Math.sin(ang));
 			else
-				return hip * Math.cos(ang);
+				return Math.abs( hip * Math.cos(ang));
 			//TargetPoints.setCatetoAdjacente(TargetPoints.getHipotenusa() * Math.cos(TargetPoints.getFirstAngle()));
 		//	return true;
 		}

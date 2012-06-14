@@ -9,19 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.google.android.maps.GeoPoint;
-
 import fuz.Fuzzy;
-import fuz.Fuzzy2;
-import fuz.Ranges;
 import fuz.VariavelLinguistica;
 
 
 
-
-
-
-import agrobot.navigo.R.string;
 import android.draw.GeoUtils;
 import android.app.Activity;
 import android.content.Context;
@@ -264,19 +256,19 @@ public class Navigation extends Activity implements LocationListener {
 		TextView textAngle = (TextView) findViewById(R.id.angleView);
 		textAngle.setText(String.valueOf(Math.round(ang)));
 		
-		TextView viewLatitude = (TextView) findViewById(R.id.latitude);
-		viewLatitude.setTypeface(LCDTypeface);
-		viewLatitude.setTextSize(25);
-		viewLatitude.setText(StrMyLocationLat);
-		TextView viewSouth = (TextView) findViewById(R.id.south);
-		viewSouth.setText(south);
-
-		TextView viewLongitude = (TextView) findViewById(R.id.longitude);
-		viewLongitude.setTypeface(LCDTypeface);
-		viewLongitude.setTextSize(25);
-		viewLongitude.setText(StrMyLocationLon); 
-		TextView viewWest = (TextView) findViewById(R.id.west);
-		viewWest.setText(west);
+//		TextView viewLatitude = (TextView) findViewById(R.id.latitude);
+//		viewLatitude.setTypeface(LCDTypeface);
+//		viewLatitude.setTextSize(25);
+//		viewLatitude.setText(StrMyLocationLat);
+//		TextView viewSouth = (TextView) findViewById(R.id.south);
+//		viewSouth.setText(south);
+//
+//		TextView viewLongitude = (TextView) findViewById(R.id.longitude);
+//		viewLongitude.setTypeface(LCDTypeface);
+//		viewLongitude.setTextSize(25);
+//		viewLongitude.setText(StrMyLocationLon); 
+//		TextView viewWest = (TextView) findViewById(R.id.west);
+//		viewWest.setText(west);
 		
 		TextView viewInfo = (TextView) findViewById(R.id.information);
 		viewInfo.setTypeface(LCDTypeface);
@@ -289,16 +281,32 @@ public class Navigation extends Activity implements LocationListener {
 			if((Point.getFirstLatitude()==0)){
 //				marca o primeiro ponto
 				Point.setTargetAngle(ang);
-				Point.setTargetHipotenusa(mDistance*AUMENTO);
-				Point.setTargetCatetoOposto(Point.makeTriangle("Oposto", mDistance*AUMENTO, (ang)));
-				Point.setTargetCatetoAdjacente(Point.makeTriangle("Adjascente", mDistance*AUMENTO,(ang)));
+				Point.setTargetHipotenusa(mDistance);
+				Point.setTargetCatetoOposto(Point.makeTriangle("Oposto", mDistance, ang));
+				Point.setTargetCatetoAdjacente(Point.makeTriangle("Adjascente", mDistance,ang));
 				Point.setFirstLatitude(mMyLocationLat);
 				Point.setFirstLongitude(mMyLocationLon);
 				Fuzzy.createRules();
-//				Ranges r = new Ranges();
-//				ArrayList<VariavelLinguistica> dirX = r.createRanges((int) Point.getCatetoAdjacente(), 5, rX);
-//				ArrayList<VariavelLinguistica> dirY = r.createRanges((int) Point.getCatetoOposto(), 5, rY);
-//				String a=Fuzzy2.doFuzzy(dirX,dirY);
+				
+				TextView viewAng= (TextView) findViewById(R.id.firstAngle);
+				viewAng.setTypeface(LCDTypeface);
+				viewAng.setTextSize(20);
+				viewAng.setText(f.format(ang));
+				
+				TextView viewLatitude = (TextView) findViewById(R.id.latitude);
+				viewLatitude.setTypeface(LCDTypeface);
+				viewLatitude.setTextSize(20);
+				viewLatitude.setText(String.valueOf( Point.getTargetCatetoOposto()));
+				TextView viewSouth = (TextView) findViewById(R.id.south);
+				viewSouth.setText(south);
+		
+				TextView viewLongitude = (TextView) findViewById(R.id.longitude);
+				viewLongitude.setTypeface(LCDTypeface);
+				viewLongitude.setTextSize(20);
+				viewLongitude.setText(String.valueOf( Point.getTargetCatetoAdjacente())); 
+				TextView viewWest = (TextView) findViewById(R.id.west);
+				viewWest.setText(west);
+
 		        Toast.makeText(getBaseContext(), 
               "co"+Point.getTargetCatetoOposto()+"\n ca"+Point.getTargetCatetoAdjacente()
               +"\n an"+ang+"\n d"+mDistance, 
@@ -312,41 +320,37 @@ public class Navigation extends Activity implements LocationListener {
 				double newAdj,newOposto;
 				
 				double newHipotenusa =  (GeoUtils.distanceKm(Point.getFirstLatitude(),Point.getFirstLongitude(), 
-						mMyLocationLat, mMyLocationLon))*AUMENTO;
+						mMyLocationLat, mMyLocationLon));
 
 		        double newAngulo     = Math.round(GeoUtils.bearing(Point.getFirstLatitude(),Point.getFirstLongitude(),
 		        		mMyLocationLat, mMyLocationLon));
 
 		        
-				if(Point.getFirstLatitude()>mMyLocationLat){
-					newAdj=0;
-				}else{
-					newAdj    = Point.makeTriangle("Adjascente",  newHipotenusa, newAngulo);	
-				}
-				if(Point.getFirstLongitude()>mMyLocationLon){
-					newOposto=0;
-				}else{
-					newOposto = Point.makeTriangle("Oposto",  newHipotenusa, newAngulo);
-				}					
+				newAdj    = Point.makeTriangle("Adjascente",  newHipotenusa, newAngulo);	
+				newOposto = Point.makeTriangle("Oposto",  newHipotenusa, newAngulo);
+				
+				
 				
 				String extersao = Fuzzy.doFuzzy(newAdj,newOposto);
+				
 				viewInfo.setText("Extersao:"+String.valueOf(extersao));
 				
 				TextView viewHip= (TextView) findViewById(R.id.firstHip);
 				viewHip.setTypeface(LCDTypeface);
 				viewHip.setTextSize(20);
-				viewHip.setText(f.format(newHipotenusa));
+				//viewHip.setText(f.format((int)ang));
+				//viewHip.setText(x.get(0).getFinish()));
 				
 				TextView viewAdj= (TextView) findViewById(R.id.firstAdj);
 				viewAdj.setTypeface(LCDTypeface);
 				viewAdj.setTextSize(20);
-				viewAdj.setText(String.valueOf(newAngulo));
+				viewAdj.setText(String.valueOf(newAdj));
 				
 				TextView viewOpo= (TextView) findViewById(R.id.firstOposto);
 				viewOpo.setTypeface(LCDTypeface);
 				viewOpo.setTextSize(20);
-				//viewOpo.setText(String.valueOf(newOposto));
-				viewOpo.setText("");
+				viewOpo.setText(String.valueOf(newOposto));
+		
 				
 			}
 		}else{
@@ -367,11 +371,7 @@ public class Navigation extends Activity implements LocationListener {
 //      +"\n an"+ang+"\n d"+mDistance, 
 //      Toast.LENGTH_SHORT).show();
 
-		
-		TextView viewAng= (TextView) findViewById(R.id.firstAngle);
-		viewAng.setTypeface(LCDTypeface);
-		viewAng.setTextSize(20);
-		viewAng.setText(f.format(ang));
+	
 		//viewAng.setText(String.valueOf(Math.round(Point.getFirstAngle())));
 	
 //        Toast.makeText(getBaseContext(), 

@@ -88,6 +88,11 @@ public class Fuzzy {
 			x=dirX.get(dirX.size()-1).getFinish() ;
 		if(y>dirY.get(dirY.size()-1).getFinish())
 			y=dirY.get(dirY.size()-1).getFinish() ;
+		if(x<0 )
+			x=0 ;
+		if(y<0)
+			y=0 ;
+
 		direcao.setInputValue(x);
 		posicao.setInputValue(y);
 	
@@ -119,8 +124,8 @@ public class Fuzzy {
 	
 	public static void createRules(){
 		Ranges   r = new Ranges();
-		dirX = r.createRanges((int) Point.getFirstCatetoAdjacente(), 5, rotulosX);
-		dirY = r.createRanges((int) Point.getFirstCatetoOposto(), 5, rotulosY);
+		dirX = r.createRanges(Point.getTargetCatetoAdjacente(), 5, rotulosX);
+		dirY = r.createRanges(Point.getTargetCatetoOposto(), 5, rotulosY);
 	}
 	
 	
