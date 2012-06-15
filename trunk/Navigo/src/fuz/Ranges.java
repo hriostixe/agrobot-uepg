@@ -21,7 +21,7 @@ public class Ranges {
 		for(double i=0;i<q;i++){
 			start=leftTop;
 			
-			if((i+1)>=q){
+			if(i+1>=q){
 				finish=finish+tam;
 				tam=0;
 			}	

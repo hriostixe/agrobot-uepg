@@ -241,7 +241,7 @@ public class Navigation extends Activity implements LocationListener {
         
         mDistance      = GeoUtils.distanceKm(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon);
 
-        double   ang   = Math.round(GeoUtils.bearing(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon));
+        double   ang   = (GeoUtils.bearing(mMyLocationLat, mMyLocationLon,mTargetLat,mTargetLon));
 
         radarView.updateDistance(mDistance);
         
@@ -256,19 +256,19 @@ public class Navigation extends Activity implements LocationListener {
 		TextView textAngle = (TextView) findViewById(R.id.angleView);
 		textAngle.setText(String.valueOf(Math.round(ang)));
 		
-//		TextView viewLatitude = (TextView) findViewById(R.id.latitude);
-//		viewLatitude.setTypeface(LCDTypeface);
-//		viewLatitude.setTextSize(25);
-//		viewLatitude.setText(StrMyLocationLat);
-//		TextView viewSouth = (TextView) findViewById(R.id.south);
-//		viewSouth.setText(south);
-//
-//		TextView viewLongitude = (TextView) findViewById(R.id.longitude);
-//		viewLongitude.setTypeface(LCDTypeface);
-//		viewLongitude.setTextSize(25);
-//		viewLongitude.setText(StrMyLocationLon); 
-//		TextView viewWest = (TextView) findViewById(R.id.west);
-//		viewWest.setText(west);
+		TextView viewLatitude = (TextView) findViewById(R.id.latitude);
+		viewLatitude.setTypeface(LCDTypeface);
+		viewLatitude.setTextSize(25);
+		viewLatitude.setText(String.valueOf(mMyLocationLat));
+		TextView viewSouth = (TextView) findViewById(R.id.south);
+		viewSouth.setText(south);
+
+		TextView viewLongitude = (TextView) findViewById(R.id.longitude);
+		viewLongitude.setTypeface(LCDTypeface);
+		viewLongitude.setTextSize(25);
+		viewLongitude.setText(String.valueOf(mMyLocationLon)); 
+		TextView viewWest = (TextView) findViewById(R.id.west);
+		viewWest.setText(west);
 		
 		TextView viewInfo = (TextView) findViewById(R.id.information);
 		viewInfo.setTypeface(LCDTypeface);
@@ -293,19 +293,6 @@ public class Navigation extends Activity implements LocationListener {
 				viewAng.setTextSize(20);
 				viewAng.setText(f.format(ang));
 				
-				TextView viewLatitude = (TextView) findViewById(R.id.latitude);
-				viewLatitude.setTypeface(LCDTypeface);
-				viewLatitude.setTextSize(20);
-				viewLatitude.setText(String.valueOf( Point.getTargetCatetoOposto()));
-				TextView viewSouth = (TextView) findViewById(R.id.south);
-				viewSouth.setText(south);
-		
-				TextView viewLongitude = (TextView) findViewById(R.id.longitude);
-				viewLongitude.setTypeface(LCDTypeface);
-				viewLongitude.setTextSize(20);
-				viewLongitude.setText(String.valueOf( Point.getTargetCatetoAdjacente())); 
-				TextView viewWest = (TextView) findViewById(R.id.west);
-				viewWest.setText(west);
 
 		        Toast.makeText(getBaseContext(), 
               "co"+Point.getTargetCatetoOposto()+"\n ca"+Point.getTargetCatetoAdjacente()
@@ -322,7 +309,7 @@ public class Navigation extends Activity implements LocationListener {
 				double newHipotenusa =  (GeoUtils.distanceKm(Point.getFirstLatitude(),Point.getFirstLongitude(), 
 						mMyLocationLat, mMyLocationLon));
 
-		        double newAngulo     = Math.round(GeoUtils.bearing(Point.getFirstLatitude(),Point.getFirstLongitude(),
+		        double newAngulo     = (GeoUtils.bearing(Point.getFirstLatitude(),Point.getFirstLongitude(),
 		        		mMyLocationLat, mMyLocationLon));
 
 		        
@@ -338,18 +325,24 @@ public class Navigation extends Activity implements LocationListener {
 				TextView viewHip= (TextView) findViewById(R.id.firstHip);
 				viewHip.setTypeface(LCDTypeface);
 				viewHip.setTextSize(20);
-				//viewHip.setText(f.format((int)ang));
+				viewHip.setText(String.valueOf(newHipotenusa));
 				//viewHip.setText(x.get(0).getFinish()));
 				
 				TextView viewAdj= (TextView) findViewById(R.id.firstAdj);
 				viewAdj.setTypeface(LCDTypeface);
 				viewAdj.setTextSize(20);
-				viewAdj.setText(String.valueOf(newAdj));
+				//viewAdj.setText(String.valueOf(newAdj));
+				
+				TextView viewAng= (TextView) findViewById(R.id.firstAngle);
+				viewAng.setTypeface(LCDTypeface);
+				viewAng.setTextSize(20);
+				viewAng.setText(String.valueOf(newAngulo));
+				
 				
 				TextView viewOpo= (TextView) findViewById(R.id.firstOposto);
 				viewOpo.setTypeface(LCDTypeface);
 				viewOpo.setTextSize(20);
-				viewOpo.setText(String.valueOf(newOposto));
+				//viewOpo.setText(String.valueOf(newOposto));
 		
 				
 			}
