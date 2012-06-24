@@ -1,9 +1,16 @@
 package fuz;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import agrobot.navigo.Point;
+import android.os.Environment;
 
 import fuzzy.EvaluationException;
 import fuzzy.FuzzyBlockOfRules;
@@ -43,7 +50,7 @@ public class Fuzzy {
 		LinguisticVariable angulo = new LinguisticVariable("angulo"); 
 		angulo.add("BE",-30,-30,-30,-15); 
 		angulo.add("E",-30,-15,-15,0);
-		angulo.add("M",-15,0,0,15);
+		angulo.add("M",-10,0,0,10);
 		angulo.add("D",0,15,15,30); 
 		angulo.add("BD",15,30,30,30);
 		FuzzyEngine fuzzyEngine = new FuzzyEngine();
@@ -58,7 +65,7 @@ public class Fuzzy {
 				"if direcao is ME and posicao is A then angulo is BE \n" +
 				"if direcao is ME and posicao is MA then angulo is BE \n" +
 				
-				"if direcao is E and posicao is MB then angulo is BD \n " +
+				"if direcao is E and posicao is MB then angulo is D \n " +
 				"if direcao is E and posicao is B then angulo is M \n" +
 				"if direcao is E and posicao is Ne then angulo is E \n" +
 				"if direcao is E and posicao is A then angulo is BE \n" +
@@ -88,10 +95,6 @@ public class Fuzzy {
 			x=dirX.get(dirX.size()-1).getFinish() ;
 		if(y>dirY.get(dirY.size()-1).getFinish())
 			y=dirY.get(dirY.size()-1).getFinish() ;
-		if(x<0 )
-			x=0 ;
-		if(y<0)
-			y=0 ;
 
 		direcao.setInputValue(x);
 		posicao.setInputValue(y);
@@ -102,6 +105,7 @@ public class Fuzzy {
 			
 			fuzzyBlockOfRules.parseBlock();
 			fuzzyBlockOfRules.evaluateBlockText();
+			DecimalFormat f = new DecimalFormat("0.####");
 			result = String.valueOf(angulo.defuzzify());
 			
 		} catch (RulesParsingException e) {
@@ -126,6 +130,40 @@ public class Fuzzy {
 		Ranges   r = new Ranges();
 		dirX = r.createRanges(Point.getTargetCatetoAdjacente(), 5, rotulosX);
 		dirY = r.createRanges(Point.getTargetCatetoOposto(), 5, rotulosY);
+		try{
+		    String lstrNomeArq = "rules.txt";
+             
+            File arq = new File(Environment.getExternalStorageDirectory(), lstrNomeArq);
+            FileOutputStream fos;
+             
+            //transforma o texto digitado em array de bytes
+            byte[] dados;
+            String texto;
+            Date date = new Date();    
+    		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");  
+    		String formattedDate = formato.format(date);   
+
+            texto = formattedDate;
+            
+            for(int i=0;i<dirX.size();i++)
+        		texto = texto+( dirX.get(i).getName()+" ||"+ dirX.get(i).getStart()+" ||" + dirX.get(i).getLeftTop()+" ||"+ 
+        							dirX.get(i).getRightTop()+" ||"+ dirX.get(i).getFinish()+" \n");
+        	for(int i=0;i<dirY.size();i++)
+        		texto = texto+( dirY.get(i).getName()+" ||"+ dirY.get(i).getStart()+" ||" + dirY.get(i).getLeftTop()+" ||"+ 
+        								dirY.get(i).getRightTop()+" ||"+ dirY.get(i).getFinish()+" \n");
+        		
+            dados = texto.getBytes();
+            fos = new FileOutputStream(arq,true);
+             
+            //escreve os dados e fecha o arquivo
+            fos.write(dados);
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            System.out.println("Erro : " + e.getMessage());
+        }        
+		
+	
 	}
 	
 	
