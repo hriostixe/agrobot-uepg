@@ -1,6 +1,8 @@
 package agrobot.navigo;
 
 
+import java.text.DecimalFormat;
+
 import com.google.android.maps.GeoPoint;
 
 public class Point {
@@ -19,7 +21,76 @@ public class Point {
 	public static double firstCatetoOposto=0;
 	public static double firstCatetoAdjacente=0;
 	public static double firstHipotenusa=0;
-	
+
+	public static int maxIteracoes=5;
+	public static int iteracao=0;
+	public static double mediaValor=0;
+
+	public static String PRECISAO="#.####";	
+	public static int getMaxIteracoes() {
+		return maxIteracoes;
+	}
+
+
+
+
+
+	public static String getPRECISAO() {
+		return PRECISAO;
+	}
+
+
+
+
+
+	public static void setPRECISAO(String pRECISAO) {
+		PRECISAO = pRECISAO;
+	}
+
+
+
+
+
+	public static void setMaxIteracoes(int maxIteracoes) {
+		Point.maxIteracoes = maxIteracoes;
+	}
+
+
+
+
+
+	public static int getIteracao() {
+		return iteracao;
+	}
+
+
+
+
+
+	public static void setIteracao(int iteracao) {
+		Point.iteracao = iteracao;
+	}
+
+
+
+
+
+	public static double getMediaValor() {
+		return mediaValor;
+	}
+
+
+
+
+
+	public static void setMediaValor(double mediaValor) {
+		Point.mediaValor = mediaValor;
+	}
+
+
+
+
+
 	public static double getFirstLatitude() {
 		return firstLatitude;
 	}
@@ -77,7 +148,8 @@ public class Point {
 
 
 	public static void setFirstCatetoOposto(double firstCatetoOposto) {
-		Point.firstCatetoOposto = firstCatetoOposto;
+		DecimalFormat deci = new DecimalFormat(PRECISAO);		
+		Point.firstCatetoOposto = Double.parseDouble(deci.format(firstCatetoOposto).replace(',', '.'));
 	}
 
 
@@ -93,7 +165,8 @@ public class Point {
 
 
 	public static void setFirstCatetoAdjacente(double firstCatetoAdjacente) {
-		Point.firstCatetoAdjacente = firstCatetoAdjacente;
+		DecimalFormat deci = new DecimalFormat(PRECISAO);		
+		Point.firstCatetoAdjacente = Double.parseDouble(deci.format(firstCatetoAdjacente).replace(',', '.'));
 	}
 
 
@@ -109,7 +182,8 @@ public class Point {
 
 
 	public static void setFirstHipotenusa(double firstHipotenusa) {
-		Point.firstHipotenusa = firstHipotenusa;
+		DecimalFormat deci = new DecimalFormat(PRECISAO);		
+		Point.firstHipotenusa = Double.parseDouble(deci.format(firstHipotenusa).replace(',', '.'));
 	}
 
 
@@ -185,7 +259,8 @@ public class Point {
 
 
 	public static void setTargetCatetoOposto(double targetCatetoOposto) {
-		Point.targetCatetoOposto = targetCatetoOposto;
+		DecimalFormat deci = new DecimalFormat(PRECISAO);		
+		Point.targetCatetoOposto = Double.parseDouble(deci.format(targetCatetoOposto).replace(',', '.'));
 	}
 
 
@@ -201,7 +276,8 @@ public class Point {
 
 
 	public static void setTargetCatetoAdjacente(double targetCatetoAdjacente) {
-		Point.targetCatetoAdjacente = targetCatetoAdjacente;
+		DecimalFormat deci = new DecimalFormat(PRECISAO);		
+		Point.targetCatetoAdjacente = Double.parseDouble(deci.format(targetCatetoAdjacente).replace(',', '.'));
 	}
 
 
@@ -217,7 +293,8 @@ public class Point {
 
 
 	public static void setTargetHipotenusa(double targetHipotenusa) {
-		Point.targetHipotenusa = targetHipotenusa;
+		DecimalFormat deci = new DecimalFormat(PRECISAO);		
+		Point.targetHipotenusa = Double.parseDouble(deci.format(targetHipotenusa).replace(',', '.'));
 	}
 
 
@@ -235,9 +312,9 @@ public class Point {
 	public static double makeTriangle(String tipo, double hip,double ang){
 		try{
 			if(tipo=="Oposto")
-				return Math.abs(hip * Math.sin(ang));
+				return Math.abs(hip * Math.sin(Math.toRadians(ang)));
 			else
-				return Math.abs( hip * Math.cos(ang));
+				return Math.abs( hip * Math.cos(Math.toRadians(ang)));
 			//TargetPoints.setCatetoAdjacente(TargetPoints.getHipotenusa() * Math.cos(TargetPoints.getFirstAngle()));
 		//	return true;
 		}
