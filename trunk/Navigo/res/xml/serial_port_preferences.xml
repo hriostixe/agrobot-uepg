@@ -20,4 +20,5 @@
 		android:dependency="EXTERNAL_DEVICE"
 		android:persistent="true"> 
 	</ListPreference>
+	
 </PreferenceScreen>

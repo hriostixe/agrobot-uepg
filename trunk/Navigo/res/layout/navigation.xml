@@ -72,10 +72,9 @@
 		android:layout_weight="60" android:layout_marginLeft="3sp">
 		<LinearLayout 
 			android:layout_width="fill_parent" 
-			android:orientation="vertical" 
 			android:layout_height="fill_parent" 
 			android:layout_weight="1" 
-			android:layout_margin="5dp">
+			android:layout_margin="5dp" android:orientation="vertical">
 			<TableRow 
 				android:layout_width="match_parent" 
 				android:id="@+id/tableRow1" 
@@ -99,18 +98,10 @@
 						<TextView android:layout_height="wrap_content" android:text="O" android:layout_weight="10" android:layout_width="0dp" android:gravity="center" android:id="@+id/west" android:textSize="18sp"></TextView>
 					</LinearLayout>
 					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-						<TextView android:gravity="left|center_vertical" android:textSize="12sp" android:id="@+id/TextView06" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:layout_weight="30" android:text="Ang. Ini." android:layout_width="0dp"></TextView>
-						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstAngle" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
 						
 					</LinearLayout>
 					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView07" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="Dist.Inicio:" android:textSize="12sp" android:layout_weight="30"></TextView>
-						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/firstHip" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
-						
-					</LinearLayout>
-					<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
-						<TextView android:gravity="left|center_vertical" android:id="@+id/TextView08" android:layout_width="0dp" android:textAppearance="?android:attr/textAppearanceSmall" android:layout_height="wrap_content" android:text="Iteração:" android:textSize="12sp" android:layout_weight="30"></TextView>
-						<TextView android:textSize="20sp" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/iteracao" android:text="0" android:layout_weight="60" android:layout_width="0dp" android:gravity="left" android:textColor="@color/opaque_green"></TextView>
+						<ImageView android:layout_height="wrap_content" android:id="@+id/seta" android:src="@drawable/f" android:layout_width="match_parent"></ImageView>
 						
 					</LinearLayout>
 						<LinearLayout android:orientation="horizontal" android:id="@+id/LinearLayoutAng" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
