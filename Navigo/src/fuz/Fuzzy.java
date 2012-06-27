@@ -130,39 +130,39 @@ public class Fuzzy {
 		Ranges   r = new Ranges();
 		dirX = r.createRanges(Point.getTargetCatetoAdjacente(), 5, rotulosX);
 		dirY = r.createRanges(Point.getTargetCatetoOposto(), 5, rotulosY);
-		try{
-		    String lstrNomeArq = "rules.txt";
-             
-            File arq = new File(Environment.getExternalStorageDirectory(), lstrNomeArq);
-            FileOutputStream fos;
-             
-            //transforma o texto digitado em array de bytes
-            byte[] dados;
-            String texto;
-            Date date = new Date();    
-    		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");  
-    		String formattedDate = formato.format(date);   
-
-            texto = formattedDate;
-            
-            for(int i=0;i<dirX.size();i++)
-        		texto = texto+( dirX.get(i).getName()+" ||"+ dirX.get(i).getStart()+" ||" + dirX.get(i).getLeftTop()+" ||"+ 
-        							dirX.get(i).getRightTop()+" ||"+ dirX.get(i).getFinish()+" \n");
-        	for(int i=0;i<dirY.size();i++)
-        		texto = texto+( dirY.get(i).getName()+" ||"+ dirY.get(i).getStart()+" ||" + dirY.get(i).getLeftTop()+" ||"+ 
-        								dirY.get(i).getRightTop()+" ||"+ dirY.get(i).getFinish()+" \n");
-        		
-            dados = texto.getBytes();
-            fos = new FileOutputStream(arq,true);
-             
-            //escreve os dados e fecha o arquivo
-            fos.write(dados);
-            fos.flush();
-            fos.close();
-        } catch (Exception e) {
-            System.out.println("Erro : " + e.getMessage());
-        }        
-		
+//		try{
+//		    String lstrNomeArq = "rules.txt";
+//             
+//            File arq = new File(Environment.getExternalStorageDirectory(), lstrNomeArq);
+//            FileOutputStream fos;
+//             
+//            //transforma o texto digitado em array de bytes
+//            byte[] dados;
+//            String texto;
+//            Date date = new Date();    
+//    		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.SSS");  
+//    		String formattedDate = formato.format(date);   
+//
+//            texto = formattedDate;
+//            
+//            for(int i=0;i<dirX.size();i++)
+//        		texto = texto+( dirX.get(i).getName()+" ||"+ dirX.get(i).getStart()+" ||" + dirX.get(i).getLeftTop()+" ||"+ 
+//        							dirX.get(i).getRightTop()+" ||"+ dirX.get(i).getFinish()+" \n");
+//        	for(int i=0;i<dirY.size();i++)
+//        		texto = texto+( dirY.get(i).getName()+" ||"+ dirY.get(i).getStart()+" ||" + dirY.get(i).getLeftTop()+" ||"+ 
+//        								dirY.get(i).getRightTop()+" ||"+ dirY.get(i).getFinish()+" \n");
+//        		
+//            dados = texto.getBytes();
+//            fos = new FileOutputStream(arq,true);
+//             
+//            //escreve os dados e fecha o arquivo
+//            fos.write(dados);
+//            fos.flush();
+//            fos.close();
+//        } catch (Exception e) {
+//            System.out.println("Erro : " + e.getMessage());
+//        }        
+//		
 	
 	}
 	

@@ -1,16 +1,10 @@
 package agrobot.navigo;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,10 +22,11 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -154,6 +149,8 @@ public class Navigation extends Activity implements LocationListener {
 			mTargetLat = latE6 / (double) GeoUtils.MILLION;
 			mTargetLon = lonE6 / (double) GeoUtils.MILLION;
 		}
+		ImageView imageSeta = (ImageView) findViewById(R.id.seta);
+		imageSeta.setVisibility(View.INVISIBLE);
 
 	}
 
@@ -302,12 +299,10 @@ public class Navigation extends Activity implements LocationListener {
 		TextView viewInfo = (TextView) findViewById(R.id.information);
 		viewInfo.setTypeface(LCDTypeface);
 		viewInfo.setTextSize(25);
-		DecimalFormat f = new DecimalFormat("0.####");
 
 		if (Point.getTargetPoint() != null) {
 			// entao temos já marcado o target
-			// viewInfo.setText("TESTE.: " +
-			// Point.getTargetPoint().getLatitudeE6());
+			radarView.startSweep();
 			if ((Point.getFirstLatitude() == 0)) {
 				// marca o primeiro ponto
 				Point.setTargetAngle(ang);
@@ -318,49 +313,8 @@ public class Navigation extends Activity implements LocationListener {
 						mDistance, ang));
 				Point.setFirstLatitude(mMyLocationLat);
 				Point.setFirstLongitude(mMyLocationLon);
-				try {
-					String lstrNomeArq = "trianguloPrin.txt";
-
-					File arq = new File(
-							Environment.getExternalStorageDirectory(),
-							lstrNomeArq);
-					FileOutputStream fos;
-
-					// transforma o texto digitado em array de bytes
-					byte[] dados;
-					String texto;
-					Date date = new Date();
-					DateFormat formato = new SimpleDateFormat(
-							"dd/MM/yyyy HH:mm:ss.SSS");
-					String formattedDate = formato.format(date);
-
-					texto = formattedDate
-							+ "Angulo:"
-							+ String.valueOf(Point.getTargetAngle())
-							+ " || hipotenusa:"
-							+ String.valueOf(Point.getTargetHipotenusa())
-							+ " || Oposto:"
-							+ String.valueOf(Point.getTargetCatetoOposto())
-							+ " || Adjacente:"
-							+ String.valueOf(Point.getTargetCatetoAdjacente()
-									+ "\n");
-					dados = texto.getBytes();
-					fos = new FileOutputStream(arq, true);
-
-					// escreve os dados e fecha o arquivo
-					fos.write(dados);
-					fos.flush();
-					fos.close();
-				} catch (Exception e) {
-					System.out.println("Erro : " + e.getMessage());
-				}
-
+				
 				Fuzzy.createRules();
-
-				TextView viewAng = (TextView) findViewById(R.id.firstAngle);
-				viewAng.setTypeface(LCDTypeface);
-				viewAng.setTextSize(20);
-				viewAng.setText(f.format(ang));
 				Point.setIteracao(0);
 				Point.setMediaValor(0);
 
@@ -371,9 +325,6 @@ public class Navigation extends Activity implements LocationListener {
 								+ ang + "\n d" + mDistance, Toast.LENGTH_SHORT)
 						.show();
 
-				// Toast.makeText(getBaseContext(),
-				// "entrou"+ang,
-				// Toast.LENGTH_SHORT).show();
 
 			} else {
 				double newAdj, newOposto;
@@ -386,149 +337,106 @@ public class Navigation extends Activity implements LocationListener {
 						Point.getFirstLatitude(), Point.getFirstLongitude(),
 						mMyLocationLat, mMyLocationLon));
 				DecimalFormat deci = new DecimalFormat(Point.getPRECISAO());
-				newHipotenusa = Double.parseDouble(deci.format(newHipotenusa).replace(',', '.'));
+				newHipotenusa = Double.parseDouble(deci.format(newHipotenusa)
+						.replace(',', '.'));
 
 				newAdj = Point.makeTriangle("Adjascente", newHipotenusa,
 						newAngulo);
 				newOposto = Point.makeTriangle("Oposto", newHipotenusa,
 						newAngulo);
-				
-				newAdj = Double.parseDouble(deci.format(newAdj).replace(',', '.'));
-				newOposto = Double.parseDouble(deci.format(newOposto).replace(',', '.'));
+
+				newAdj = Double.parseDouble(deci.format(newAdj).replace(',',
+						'.'));
+				newOposto = Double.parseDouble(deci.format(newOposto).replace(
+						',', '.'));
 
 				String extersao = Fuzzy.doFuzzy(newAdj, newOposto);
-				try {
-					String lstrNomeArq = "trianguloSec.txt";
-
-					File arq = new File(
-							Environment.getExternalStorageDirectory(),
-							lstrNomeArq);
-					FileOutputStream fos;
-
-					// transforma o texto digitado em array de bytes
-					byte[] dados;
-					String texto;
-					Date date = new Date();
-					DateFormat formato = new SimpleDateFormat(
-							"dd/MM/yyyy HH:mm:ss.SSS");
-					String formattedDate = formato.format(date);
-					texto = formattedDate
-							+ " Angulo:"
-							+ String.valueOf(newAngulo)
-							+ " || hipotenusa:"
-							+ String.valueOf(newHipotenusa)
-							+ " || Oposto:"
-							+ String.valueOf(newOposto)
-							+ " || Adjacente:"
-							+ String.valueOf(newAdj + " || Fuzzy:"
-									+ String.valueOf(extersao) + "\n");
-					dados = texto.getBytes();
-					fos = new FileOutputStream(arq, true);
-
-					// escreve os dados e fecha o arquivo
-					fos.write(dados);
-					fos.flush();
-					fos.close();
-				} catch (Exception e) {
-					System.out.println("Erro : " + e.getMessage());
-				}
-				if (Point.getIteracao() < Point.getMaxIteracoes()) {
-					Point.setMediaValor(Point.getMediaValor()
-							+ Double.parseDouble(extersao));
-					Point.setIteracao(Point.getIteracao() + 1);
-					// Toast.makeText(getBaseContext(),
-					// ""+ String.valueOf(Point.getIteracao()),
-					// Toast.LENGTH_SHORT).show();
-
-				} else {
-					long res = Math.round((Point.getMediaValor() / Point
-							.getIteracao()));
-					String dir;
-					if (res < 0)
-						dir = " <- esquerda";
-					else
-						dir = " -> direita";
-					if (res == 0)
-						viewInfo.setText("Continue em Frente");
-					else
-						viewInfo.setText("Vire " + String.valueOf(res) + dir);
-					Point.setIteracao(0);
-					Point.setMediaValor(0);
-				}
-
-				TextView viewHip = (TextView) findViewById(R.id.firstHip);
-				viewHip.setTypeface(LCDTypeface);
-				viewHip.setTextSize(20);
-				viewHip.setText(String.valueOf(newHipotenusa));
-				// viewHip.setText(String.valueOf(Point.getIteracao()));
-
-				TextView viewAdj = (TextView) findViewById(R.id.iteracao);
-				viewAdj.setTypeface(LCDTypeface);
-				viewAdj.setTextSize(20);
-				viewAdj.setText(String.valueOf(Point.getIteracao()));
-
-				TextView viewAng = (TextView) findViewById(R.id.firstAngle);
-				viewAng.setTypeface(LCDTypeface);
-				viewAng.setTextSize(20);
-				viewAng.setText(String.valueOf(newAngulo));
-
+				
+				// if (Point.getIteracao() < Point.getMaxIteracoes()) {
+				// Point.setMediaValor(Point.getMediaValor()
+				// + Double.parseDouble(extersao));
+				// Point.setIteracao(Point.getIteracao() + 1);
+				// // Toast.makeText(getBaseContext(),
+				// // ""+ String.valueOf(Point.getIteracao()),
+				// // Toast.LENGTH_SHORT).show();
 				//
-				// TextView viewOpo= (TextView) findViewById(R.id.firstOposto);
-				// viewOpo.setTypeface(LCDTypeface);
-				// viewOpo.setTextSize(20);
-				// //viewOpo.setText(String.valueOf(newOposto));
+				// } else {
+				// long res = Math.round((Point.getMediaValor() / Point
+				// .getIteracao()));
+				String dir;
+				double min = Point.firstAngle - 90;
+				double max = Point.firstAngle + 90;
+				if (min < 0)
+					min = 360 - Math.abs(min);
+				if (max > 360)
+					max = max - 360;
+
+				try {
+					double res = Math.round(Double.parseDouble(extersao));
+
+					ImageView imageSeta = (ImageView) findViewById(R.id.seta);
+					
+					viewInfo.setTextSize(25);
+					if (res < 0){
+						if(res<-15){
+							imageSeta.setImageResource(R.drawable.me);
+						}else{
+							imageSeta.setImageResource(R.drawable.e);
+						}
+						dir = "  esquerda";					
+						imageSeta.setVisibility(1);
+					}else{
+						if(res>15){
+							imageSeta.setImageResource(R.drawable.me);
+						}else{
+							imageSeta.setImageResource(R.drawable.e);
+						}							
+						dir = "  direita";					
+						imageSeta.setVisibility(1);
+					}if (res == 0){
+						imageSeta.setImageResource(R.drawable.f);
+						viewInfo.setText("Continue em Frente");
+					}else
+						viewInfo.setText("Vire " + Math.abs(res) + " a " + dir);
+
+					//
+				} catch (Exception e) {
+					// TODO: handle exception
+					viewInfo.setText("erro no calculo da fuzzy");
+				}
+
 
 			}
 		} else {
 			viewInfo.setText("Nenhum alvo marcado");
 		}
-		// Point.setAngle(ang);
-		// Point.setHipotenusa(mDistance);
-		// Point.setCatetoOposto((int)Point.makeTriangle("Oposto",
-		// mDistance,(int) ang));
-		// Point.setCatetoAdjacente((int)Point.makeTriangle("Adjascente",
-		// mDistance,(int)ang));
-		// Ranges r = new Ranges();
-		// String rX[] = {"ME", "E", "N", "D", "MD"};
-		// String rY[] = {"MB", "B", "Ne", "A", "MA"};
-		// ArrayList<VariavelLinguistica> dirX =
-		// r.createRanges(mDistance*Math.sin(ang) , 5, rX);
-		// ArrayList<VariavelLinguistica> dirY =
-		// r.createRanges(mDistance*Math.cos(ang), 5, rY);
-		// String a=Fuzzy2.doFuzzy(dirX,dirY);
-		// Toast.makeText(getBaseContext(),
-		// "co"+(mDistance*Math.sin(ang))+"\n ca"+(mDistance*Math.cos(ang))
-		// +"\n an"+ang+"\n d"+mDistance,
-		// Toast.LENGTH_SHORT).show();
-
-		// viewAng.setText(String.valueOf(Math.round(Point.getFirstAngle())));
-
-		// Toast.makeText(getBaseContext(),
-		// ""+Fuzzy2.doFuzzy(),
-		// Toast.LENGTH_SHORT).show();
-		//
 
 	}
 
-	/*
-	 * @Override protected void onResume() { super.onResume(); //
-	 * mSensorManager.registerListener(mRadar, SensorManager.SENSOR_ORIENTATION,
-	 * // SensorManager.SENSOR_DELAY_GAME);
-	 * 
-	 * // Start animating the radar screen satView.startSweep();
-	 * 
-	 * // Register for location updates
-	 * mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-	 * LOCATION_UPDATE_INTERVAL_MILLIS, 1, satView);
-	 * mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-	 * LOCATION_UPDATE_INTERVAL_MILLIS, 1, satView); }
-	 * 
-	 * @Override protected void onPause() { //
-	 * mSensorManager.unregisterListener(mRadar);
-	 * mLocationManager.removeUpdates(satView);
-	 * 
-	 * // Stop animating the radar screen satView.stopSweep(); super.onStop(); }
-	 */
+	// @Override
+	// protected void onResume() {
+	// super.onResume(); //
+	//
+	// mSensorManager.registerListener(mRadar, SensorManager.SENSOR_ORIENTATION,
+	// // SensorManager.SENSOR_DELAY_GAME);
+	//
+	// // Start animating the radar screen satView.startSweep();
+	//
+	// // Register for location updates
+	// mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+	// LOCATION_UPDATE_INTERVAL_MILLIS, 1, satView);
+	// mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+	// LOCATION_UPDATE_INTERVAL_MILLIS, 1, satView); }
+	//
+	// @Override protected void onPause() { //
+	// mSensorManager.unregisterListener(mRadar);
+	// mLocationManager.removeUpdates(satView);
+	//
+	// // Stop animating the radar screen
+	// satView.stopSweep();
+	// super.onStop();
+	// }
+	//
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

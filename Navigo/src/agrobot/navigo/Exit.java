@@ -9,7 +9,7 @@ public class Exit extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		TextView textview = new TextView(this);
-		textview.setText("Este é um teste - sair!");
+		textview.setText("");
 		setContentView(textview);
 
 	}
