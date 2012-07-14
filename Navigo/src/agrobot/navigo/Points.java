@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 
 import com.google.android.maps.GeoPoint;
 
-public class Point {
+public class Points {
 
 	public static GeoPoint targetPoint=null;
 	public static double targetLatitude=0;
@@ -52,7 +52,7 @@ public class Point {
 
 
 	public static void setMaxIteracoes(int maxIteracoes) {
-		Point.maxIteracoes = maxIteracoes;
+		Points.maxIteracoes = maxIteracoes;
 	}
 
 
@@ -68,7 +68,7 @@ public class Point {
 
 
 	public static void setIteracao(int iteracao) {
-		Point.iteracao = iteracao;
+		Points.iteracao = iteracao;
 	}
 
 
@@ -84,7 +84,7 @@ public class Point {
 
 
 	public static void setMediaValor(double mediaValor) {
-		Point.mediaValor = mediaValor;
+		Points.mediaValor = mediaValor;
 	}
 
 
@@ -100,7 +100,7 @@ public class Point {
 
 
 	public static void setFirstLatitude(double firstLatitude) {
-		Point.firstLatitude = firstLatitude;
+		Points.firstLatitude = firstLatitude;
 	}
 
 
@@ -116,7 +116,7 @@ public class Point {
 
 
 	public static void setFirstLongitude(double firstLongitude) {
-		Point.firstLongitude = firstLongitude;
+		Points.firstLongitude = firstLongitude;
 	}
 
 
@@ -132,7 +132,7 @@ public class Point {
 
 
 	public static void setFirstAngle(double firstAngle) {
-		Point.firstAngle = firstAngle;
+		Points.firstAngle = firstAngle;
 	}
 
 
@@ -149,7 +149,7 @@ public class Point {
 
 	public static void setFirstCatetoOposto(double firstCatetoOposto) {
 		DecimalFormat deci = new DecimalFormat(PRECISAO);		
-		Point.firstCatetoOposto = Double.parseDouble(deci.format(firstCatetoOposto).replace(',', '.'));
+		Points.firstCatetoOposto = Double.parseDouble(deci.format(firstCatetoOposto).replace(',', '.'));
 	}
 
 
@@ -166,7 +166,7 @@ public class Point {
 
 	public static void setFirstCatetoAdjacente(double firstCatetoAdjacente) {
 		DecimalFormat deci = new DecimalFormat(PRECISAO);		
-		Point.firstCatetoAdjacente = Double.parseDouble(deci.format(firstCatetoAdjacente).replace(',', '.'));
+		Points.firstCatetoAdjacente = Double.parseDouble(deci.format(firstCatetoAdjacente).replace(',', '.'));
 	}
 
 
@@ -183,7 +183,7 @@ public class Point {
 
 	public static void setFirstHipotenusa(double firstHipotenusa) {
 		DecimalFormat deci = new DecimalFormat(PRECISAO);		
-		Point.firstHipotenusa = Double.parseDouble(deci.format(firstHipotenusa).replace(',', '.'));
+		Points.firstHipotenusa = Double.parseDouble(deci.format(firstHipotenusa).replace(',', '.'));
 	}
 
 
@@ -211,7 +211,7 @@ public class Point {
 
 
 	public static void setTargetLatitude(double targetLatitude) {
-		Point.targetLatitude = targetLatitude;
+		Points.targetLatitude = targetLatitude;
 	}
 
 
@@ -227,7 +227,7 @@ public class Point {
 
 
 	public static void setTargetLongitude(double targetLongitude) {
-		Point.targetLongitude = targetLongitude;
+		Points.targetLongitude = targetLongitude;
 	}
 
 
@@ -243,7 +243,7 @@ public class Point {
 
 
 	public static void setTargetAngle(double targetAngle) {
-		Point.targetAngle = targetAngle;
+		Points.targetAngle = targetAngle;
 	}
 
 
@@ -260,7 +260,7 @@ public class Point {
 
 	public static void setTargetCatetoOposto(double targetCatetoOposto) {
 		DecimalFormat deci = new DecimalFormat(PRECISAO);		
-		Point.targetCatetoOposto = Double.parseDouble(deci.format(targetCatetoOposto).replace(',', '.'));
+		Points.targetCatetoOposto = Double.parseDouble(deci.format(targetCatetoOposto).replace(',', '.'));
 	}
 
 
@@ -277,7 +277,7 @@ public class Point {
 
 	public static void setTargetCatetoAdjacente(double targetCatetoAdjacente) {
 		DecimalFormat deci = new DecimalFormat(PRECISAO);		
-		Point.targetCatetoAdjacente = Double.parseDouble(deci.format(targetCatetoAdjacente).replace(',', '.'));
+		Points.targetCatetoAdjacente = Double.parseDouble(deci.format(targetCatetoAdjacente).replace(',', '.'));
 	}
 
 
@@ -294,7 +294,7 @@ public class Point {
 
 	public static void setTargetHipotenusa(double targetHipotenusa) {
 		DecimalFormat deci = new DecimalFormat(PRECISAO);		
-		Point.targetHipotenusa = Double.parseDouble(deci.format(targetHipotenusa).replace(',', '.'));
+		Points.targetHipotenusa = Double.parseDouble(deci.format(targetHipotenusa).replace(',', '.'));
 	}
 
 
@@ -302,7 +302,7 @@ public class Point {
 
 
 	public static void setTargetPoint(GeoPoint targetPoint) {
-		Point.targetPoint = targetPoint;
+		Points.targetPoint = targetPoint;
 	}
 
 

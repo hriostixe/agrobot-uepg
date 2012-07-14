@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import agrobot.navigo.Point;
+import agrobot.navigo.Points;
 import android.os.Environment;
 
 import fuzzy.EvaluationException;
@@ -128,8 +128,8 @@ public class Fuzzy {
 	
 	public static void createRules(){
 		Ranges   r = new Ranges();
-		dirX = r.createRanges(Point.getTargetCatetoAdjacente(), 5, rotulosX);
-		dirY = r.createRanges(Point.getTargetCatetoOposto(), 5, rotulosY);
+		dirX = r.createRanges(Points.getTargetCatetoAdjacente(), 5, rotulosX);
+		dirY = r.createRanges(Points.getTargetCatetoOposto(), 5, rotulosY);
 //		try{
 //		    String lstrNomeArq = "rules.txt";
 //             

@@ -136,10 +136,10 @@ public class Navigation extends Activity implements LocationListener {
 		// Read the target from our intent
 		Intent i = getIntent();
 
-		if (Point.getTargetPoint() != null) {// ja marcou um target
-			mTargetLat = Point.getTargetPoint().getLatitudeE6()
+		if (Points.getTargetPoint() != null) {// ja marcou um target
+			mTargetLat = Points.getTargetPoint().getLatitudeE6()
 					/ (double) GeoUtils.MILLION;
-			mTargetLon = Point.getTargetPoint().getLongitudeE6()
+			mTargetLon = Points.getTargetPoint().getLongitudeE6()
 					/ (double) GeoUtils.MILLION;
 
 		} else {
@@ -235,10 +235,10 @@ public class Navigation extends Activity implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 
-		if (Point.getTargetPoint() != null) { // já pegou o target
-			mTargetLat = Point.getTargetPoint().getLatitudeE6()
+		if (Points.getTargetPoint() != null) { // já pegou o target
+			mTargetLat = Points.getTargetPoint().getLatitudeE6()
 					/ (double) GeoUtils.MILLION;
-			mTargetLon = Point.getTargetPoint().getLongitudeE6()
+			mTargetLon = Points.getTargetPoint().getLongitudeE6()
 					/ (double) GeoUtils.MILLION;
 		}
 		mMyLocationLat = location.getLatitude();
@@ -300,49 +300,53 @@ public class Navigation extends Activity implements LocationListener {
 		viewInfo.setTypeface(LCDTypeface);
 		viewInfo.setTextSize(25);
 
-		if (Point.getTargetPoint() != null) {
+		if (Points.getTargetPoint() != null) {
 			// entao temos já marcado o target
 			radarView.startSweep();
-			if ((Point.getFirstLatitude() == 0)) {
+			if ((Points.getFirstLatitude() == 0)) {
 				// marca o primeiro ponto
-				Point.setTargetAngle(ang);
-				Point.setTargetHipotenusa(mDistance);
-				Point.setTargetCatetoOposto(Point.makeTriangle("Oposto",
+				Points.setTargetAngle(ang);
+				Points.setTargetHipotenusa(mDistance);
+				Points.setTargetCatetoOposto(Points.makeTriangle("Oposto",
 						mDistance, ang));
-				Point.setTargetCatetoAdjacente(Point.makeTriangle("Adjascente",
+				Points.setTargetCatetoAdjacente(Points.makeTriangle("Adjascente",
 						mDistance, ang));
-				Point.setFirstLatitude(mMyLocationLat);
-				Point.setFirstLongitude(mMyLocationLon);
+				Points.setFirstLatitude(mMyLocationLat);
+				Points.setFirstLongitude(mMyLocationLon);
 				
 				Fuzzy.createRules();
-				Point.setIteracao(0);
-				Point.setMediaValor(0);
+				Points.setIteracao(0);
+				Points.setMediaValor(0);
 
 				Toast.makeText(
 						getBaseContext(),
-						"co" + Point.getTargetCatetoOposto() + "\n ca"
-								+ Point.getTargetCatetoAdjacente() + "\n an"
+						"co" + Points.getTargetCatetoOposto() + "\n ca"
+								+ Points.getTargetCatetoAdjacente() + "\n an"
 								+ ang + "\n d" + mDistance, Toast.LENGTH_SHORT)
 						.show();
-
+				AndroidMapViewActivity.mapView.getOverlays().add(
+						new MyOverlayLine(Points.getTargetPoint().getLatitudeE6(),
+								Points.getTargetPoint().getLongitudeE6(),(int)(location.getLatitude()*1E6)
+										, (int) (location.getLongitude()*1E6)));
+				
 
 			} else {
 				double newAdj, newOposto;
 
 				double newHipotenusa = (GeoUtils.distanceKm(
-						Point.getFirstLatitude(), Point.getFirstLongitude(),
+						Points.getFirstLatitude(), Points.getFirstLongitude(),
 						mMyLocationLat, mMyLocationLon));
 
 				double newAngulo = Math.round(GeoUtils.bearing(
-						Point.getFirstLatitude(), Point.getFirstLongitude(),
+						Points.getFirstLatitude(), Points.getFirstLongitude(),
 						mMyLocationLat, mMyLocationLon));
-				DecimalFormat deci = new DecimalFormat(Point.getPRECISAO());
+				DecimalFormat deci = new DecimalFormat(Points.getPRECISAO());
 				newHipotenusa = Double.parseDouble(deci.format(newHipotenusa)
 						.replace(',', '.'));
 
-				newAdj = Point.makeTriangle("Adjascente", newHipotenusa,
+				newAdj = Points.makeTriangle("Adjascente", newHipotenusa,
 						newAngulo);
-				newOposto = Point.makeTriangle("Oposto", newHipotenusa,
+				newOposto = Points.makeTriangle("Oposto", newHipotenusa,
 						newAngulo);
 
 				newAdj = Double.parseDouble(deci.format(newAdj).replace(',',
@@ -364,8 +368,8 @@ public class Navigation extends Activity implements LocationListener {
 				// long res = Math.round((Point.getMediaValor() / Point
 				// .getIteracao()));
 				String dir;
-				double min = Point.firstAngle - 90;
-				double max = Point.firstAngle + 90;
+				double min = Points.firstAngle - 90;
+				double max = Points.firstAngle + 90;
 				if (min < 0)
 					min = 360 - Math.abs(min);
 				if (max > 360)
