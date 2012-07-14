@@ -318,12 +318,18 @@ public class Navigation extends Activity implements LocationListener {
 				Points.setIteracao(0);
 				Points.setMediaValor(0);
 
+//				Toast.makeText(
+//						getBaseContext(),
+//						"co" + Points.getTargetCatetoOposto() + "\n ca"
+//								+ Points.getTargetCatetoAdjacente() + "\n an"
+//								+ ang + "\n d" + mDistance, Toast.LENGTH_SHORT)
+//						.show();
+				
 				Toast.makeText(
 						getBaseContext(),
-						"co" + Points.getTargetCatetoOposto() + "\n ca"
-								+ Points.getTargetCatetoAdjacente() + "\n an"
-								+ ang + "\n d" + mDistance, Toast.LENGTH_SHORT)
+						"Rota calculada!Comece a andar.", Toast.LENGTH_SHORT)
 						.show();
+
 				AndroidMapViewActivity.mapView.getOverlays().add(
 						new MyOverlayLine(Points.getTargetPoint().getLatitudeE6(),
 								Points.getTargetPoint().getLongitudeE6(),(int)(location.getLatitude()*1E6)

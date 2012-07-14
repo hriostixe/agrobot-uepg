@@ -75,7 +75,7 @@ public class NavigoActivity extends TabActivity {
 				new Intent().setClass(this, Settings.class));
 		setupTab("about", res.getString(R.string.ac_about),
 				res.getDrawable(R.drawable.ic_tab_about),
-				new Intent().setClass(this, Settings.class));
+				new Intent().setClass(this, About.class));
 		setupTab("exit", res.getString(R.string.ac_exit),
 				res.getDrawable(R.drawable.ic_tab_exit),
 				new Intent().setClass(this, Exit.class));

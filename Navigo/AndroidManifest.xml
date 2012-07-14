@@ -20,8 +20,10 @@
 		<uses-library android:name="com.google.android.maps" />
         <activity android:name=".AndroidMapViewActivity"
                   android:label="@string/app_name"/>        
-		<activity android:name=".Settings"/>        
-		<activity android:name=".Exit"/>        
+		<activity android:name=".Settings"/>
+		<activity android:name=".About"/>        
+		<activity android:name=".Exit"/>
+		        
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
