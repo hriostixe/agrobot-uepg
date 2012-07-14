@@ -38,13 +38,13 @@ public boolean onTap(GeoPoint p, MapView mapView) {
 
  
  /*** marcar o ponto de alvo (target) **/
-Point.setTargetPoint(p);
-Point.setTargetAngle(0);
-Point.setTargetLatitude(0);
-Point.setFirstLatitude(0);
-// Toast.makeText(context, 
-//		 ""+targetPoints.getFirstAngle(), 
-//         Toast.LENGTH_SHORT).show();
+Points.setTargetPoint(p);
+Points.setTargetAngle(0);
+Points.setTargetLatitude(0);
+Points.setFirstLatitude(0);
+ Toast.makeText(context, 
+		 "Por favor aguarde... Calculando percurso", 
+         Toast.LENGTH_SHORT).show();
  String title = "pt:" + String.valueOf( " : Lat: " + p.getLatitudeE6() + 
          " Lng: " + p.getLongitudeE6());
  String snippet = "geo:\n"
@@ -72,7 +72,7 @@ protected boolean onTap(int index) {
 
 public void addItem(GeoPoint p, String title, String snippet){
 OverlayItem newItem = new OverlayItem(p, title, snippet);
-overlayItemList.removeAll(overlayItemList);
+//overlayItemList.removeAll(overlayItemList);
 overlayItemList.add(newItem);
 populate();
 }

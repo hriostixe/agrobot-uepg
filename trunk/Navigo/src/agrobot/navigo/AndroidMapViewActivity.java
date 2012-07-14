@@ -17,7 +17,7 @@ public class AndroidMapViewActivity extends MapActivity {
 	 MyItemizedOverlay myItemizedOverlay = null;
 	 MyLocationOverlay myLocationOverlay = null;
 	 MapController controller;
-	 MapView mapView;
+	 public static MapView mapView;
 /** Called when the activity is first created. */
 @Override
 public void onCreate(Bundle savedInstanceState) {
